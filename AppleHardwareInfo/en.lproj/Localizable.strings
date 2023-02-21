@@ -1,0 +1,101 @@
+/* 
+  Localizable.strings
+  AppleHardwareInfo
+
+  Created by 丹羽雄一朗 on 2022/11/09.
+  
+*/
+
+//Top
+"トップ" = "Top";
+
+"この端末について" = "About this Device";
+"端末名" = "Device Name";
+"システム情報" = "System Info";
+
+"リンク" = "Link";
+"apple.com (デフォルトブラウザ)" = "apple.com (default browser)";
+"スピードテスト (fast.com)" = "Speed Test (fast.com)";
+
+"このアプリについて" = "About this App";
+"バージョン" = "Version";
+"ビルド" = "Build";
+
+//SystemDetailView
+"現在のシステム" = "Current System";
+"システム" = "System";
+"システムビルド" = "System Build";
+
+"システムの状態" = "System Status";
+"システム起動" = "System Boot";
+"稼働時間" = "Uptime";
+
+"熱状態" = "Thermal State";
+"正常" = "Normal";
+"正常フッター" = "The thermal state is within normal limits.";
+"わずかに上昇" = "Slight Increase";
+"わずかに上昇フッター" = "The thermal state is slightly elevated.";
+"高い" = "High";
+"高いフッター" = "The thermal state is high.";
+"深刻" = "Critical";
+"深刻フッター" = "The thermal state is significantly impacting the performance of the system.";
+
+"バッテリーの状態" = "Battery Status";
+"キャンセル" = "Cancel";
+"%@の補正" = "%@ Correction";
+"現在の値: %@" = "Current Value: %@";
+"最大容量" = "Health";
+"実際の容量" = "Converted Capacity";
+
+//DeviceDetailView
+"プロセスルール" = "Process Rule";
+"CPUコア数" = "CPU Core Num";
+"CPUクロック周波数" = "CPU Frequency";
+"GPUコア数" = "GPU Core Num";
+"Neural Engineコア数" = "Neural Engine Core Num";
+"チップ" = "Chip";
+
+"容量" = "Capacity";
+"メモリ" = "Memory";
+
+"サイズ" = "Size";
+"解像度" = "Resolution";
+"画素密度" = "Pixel Density";
+"ディスプレイ" = "Display";
+
+"広角" = "Wide";
+"超広角" = "Ultra Wide";
+"望遠" = "Telephoto";
+"背面カメラ" = "Rear Camera";
+"前面カメラ" = "Front Camera";
+
+"重量" = "Weight";
+"バッテリー容量" = "Battery Capacity";
+"発売日" = "Release Date";
+"その他" = "Others";
+
+"技術仕様 (support.apple.com)" = "Technical Specifications (support.apple.com)";
+"リーダーを表示すると読みやすくなります。" = "Enabling the reader makes it easier to read.";
+
+//Glossary
+"用語解説" = "Glossary";
+"さらに表示" = "Show More";
+"閉じる" = "Show Less";
+"SoCの解説" = "SoC stands for ”System on a Chip,” a semiconductor chip that contains all the functions necessary for system operation, such as CPU, GPU, and communication modem, all in a single chip. The performance of the SoC is an important factor in determining the processing performance of the device.";
+"プロセスルールの解説" = "A process rule is a unit that expresses how thin a line can be drawn in the manufacturing process of a semiconductor, in this case, a SoC. The thinner the lines that can be drawn, the more circuits can be incorporated in a given area, resulting in a chip with lower power consumption and higher performance. In other words, the smaller this number is, the higher the performance of the chip.";
+"CPUコア数の解説" = "The CPU is the ”brain” of a computer and is responsible for a wide range of processing, such as arithmetic and control. ”The core” is the core of the CPU, and the more cores there are, the higher the performance because the processing can be divided among more cores.\n\nSome SoC may be indicated as ”2P+4E” in parentheses. This means ”2 P cores and 4 E cores are installed.” Here, ”P” means ”Performance” and ”E” means ”Efficiency,” with P cores having high performance and high power consumption and E cores having low performance but low power consumption.  By having two cores with different characteristics, the P core can be used for processing that requires advanced calculations, and the E core can be used for processing that requires only simple calculations. This allows for higher performance while reducing power consumption of the chip.";
+"GPUコア数の解説" = "The GPU is responsible for the calculations required to process images; whereas the CPU can perform a wide range of processing, GPUs specialize in simple calculations and are not suited for a wide range of processing. For this reason, the GPU is used to perform processing that requires a huge amount of simple calculations, such as the display of screens in computer games, thereby reducing the burden on the CPU.";
+"Neural Engineの解説" = "The Neural Engine, a part of the SoC dedicated to processing machine learning, was first included in the iPhone X. This functionality is used for voice recognition, which operates only on the device, and video processing when taking photos and videos.";
+"メモリ容量" = "Memory Capacity";
+"メモリ容量の解説" = "Memory is where the CPU and other devices temporarily store the data they use for processing and is often compared to a ”work desk.” If the desk is small, the workspace may be filled only with notebooks and textbooks, but if the desk is large, there will be room for reference books and dictionaries in addition to the notebooks and textbooks. Thus, the larger the capacity of the work desk, or memory, the more or larger size programs or data can be kept open. \n\nAlso, some memory may be labeled ”LPDDR4” in parentheses. This indicates the memory standard, and each generation improves data transfer speed and other performance characteristics.";
+"画面サイズ" = "Screen Size";
+"画面サイズの解説" = "In this section, screen size and type are displayed. There are two types of screens: LCD (liquid crystal display) and OLED (organic light-emitting diode). unlike LCDs, OLEDs emit light from the element itself, allowing for a deeper black color, and consume less power because the black portion of the screen does not emit light. OLEDs are also thinner than LCDs.";
+"画面解像度" = "Display Resolution";
+"画面解像度の解説" = "Screen resolution is the number of dots present in each of the height and width of the screen, and is measured in pixels. A dot can be translated as a point, and the larger the number, the more dots, or points, the screen is made up of.";
+"画素密度" = "Pixel Density";
+"画素密度の解説" = "Pixel density is a numerical value that represents the number of dots per inch, and is expressed in units such as ppi (pixels per inch). The larger this number is, the more dots are packed into a given area, resulting in a more detailed and precise representation.";
+"カメラ" = "Camera";
+"カメラの解説" = "In this section, the number of pixels and f-number of the camera installed in the device are displayed.\n\nThe number of pixels represents the number of elements that convert light into electrical signals, and is measured in megapixels (MP). In general, the higher the number of pixels, the more light can be received by more elements, and therefore, more delicate images can be produced. For example, a camera labeled 12MP has 12 megapixels, which means that 12 million elements are used to catch light.\n\n f-number is a quantification of the amount of light that a camera can take in; the smaller the f-value, the more light it can take in, allowing it to take brighter pictures in darker areas.";
+"重量の解説" = "In this section, the weight of the device is displayed";
+"バッテリー容量の解説" = "In this section, the amount of electricity that the battery can release from a fully charged state to 0%, and is measured in mAh (milliamp-hours). The higher this number, the greater the battery capacity, and the longer the battery may last, although this cannot be generalized since it is a combination of power consumption by the SoC, screen, etc.";
+"発売日の解説" = "In this section, the release date of the device is displayed.";
