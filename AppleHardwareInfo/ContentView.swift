@@ -52,8 +52,7 @@ struct ContentView: View {
                 Section {
                     //Device Name
                     Group {
-                        let indexOfDeviceList = IndexOfDeviceList()
-                        if let index = indexOfDeviceList.currentDevice {
+                        if let index = Data.currentDeviceIndex {
                             switch UIDevice.current.systemName {
                             case OS.iOS.rawValue:
                                 NavigationLink(
@@ -155,36 +154,7 @@ struct ContentView: View {
     }
 }
 
-//よく使う定数を保持する
-class IndexOfDeviceList {
-    //deviceList内におけるindex
-    var currentDevice: Int? {
-        //デバイス名のみの配列を作る
-        let iPhoneNameArray = Data.iPhoneList.map({ (list) -> String in
-            return list.deviceName
-        })
-        let iPadNameArray = Data.iPadList.map({ (list) -> String in
-            return list.deviceName
-        })
-        
-        switch UIDevice.current.systemName {
-        case OS.iOS.rawValue:
-            return iPhoneNameArray.firstIndex(of: YMTGetDeviceName.getDeviceName())
-        case OS.iPadOS.rawValue:
-            return iPadNameArray.firstIndex(of: YMTGetDeviceName.getDeviceName())
-        default:
-            return nil
-        }
-    }
-}
-
-//デバイスの種類を表すenum
-enum OS: String {
-    case iOS = "iOS"
-    case iPadOS = "iPadOS"
-}
-
-//itemとelementをList内の左右に配置する構造体
+//itemとelementをList内の左右に配置するView
 struct DefaultListItem: View {
     
     let item: LocalizedStringKey
@@ -197,43 +167,6 @@ struct DefaultListItem: View {
             Spacer()
             Text(element)
                 .defaultStyle()
-        }
-    }
-}
-
-extension Text {
-    //このアプリで用いる標準的なテキスト形式をdefaultStyleとして定義
-    func defaultStyle() -> some View {
-        self.font(.system(.callout, design: .rounded))
-    }
-}
-
-extension LocalizedStringKey {
-    //ローカライズされた値を返す
-    public func toString() -> String {
-        //use reflection
-        let mirror = Mirror(reflecting: self)
-        
-        //key属性の値を探す
-        let attributeLabelAndValue = mirror.children.first { (arg0) -> Bool in
-            let (label, _) = arg0
-            if(label == "key"){
-                return true;
-            }
-            return false;
-        }
-        
-        if(attributeLabelAndValue != nil) {
-            //NSLocalizedStringを介して、見つかったkeyのローカライズを要求する
-            return String.localizedStringWithFormat(
-                NSLocalizedString(
-                    attributeLabelAndValue!.value as! String,
-                    comment: ""
-                )
-            );
-        }
-        else {
-            return "Swift LocalizedStringKey signature must have changed."
         }
     }
 }

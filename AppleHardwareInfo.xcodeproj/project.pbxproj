@@ -11,6 +11,10 @@
 		EB646BF02924E0B500C8E24D /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BEF2924E0B500C8E24D /* DeviceData.swift */; };
 		EB646BF22924E5AF00C8E24D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */; };
 		EBCBE70C2930A66800C3B7A3 /* SystemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */; };
+		EBCC410E29A52010000EDD93 /* SystemInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCC410D29A52010000EDD93 /* SystemInfoModel.swift */; };
+		EBCC411329A52282000EDD93 /* YMTGetDeviceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCC411229A52282000EDD93 /* YMTGetDeviceName.swift */; };
+		EBCC411529A522F3000EDD93 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCC411429A522F3000EDD93 /* Extensions.swift */; };
+		EBCC411829A526EC000EDD93 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCC411729A526EC000EDD93 /* Localize.swift */; };
 		EBD631AE291AC78600E65C6C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBD631B0291AC78600E65C6C /* Localizable.strings */; };
 		EBE586642837533B004B4C3E /* AppleHardwareInfoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE586632837533B004B4C3E /* AppleHardwareInfoApp.swift */; };
 		EBE586662837533B004B4C3E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE586652837533B004B4C3E /* ContentView.swift */; };
@@ -43,6 +47,10 @@
 		EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		EBB78961290FBDAD009D4EC9 /* AppleHardwareInfo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppleHardwareInfo.entitlements; sourceTree = "<group>"; };
 		EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemInfoView.swift; sourceTree = "<group>"; };
+		EBCC410D29A52010000EDD93 /* SystemInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemInfoModel.swift; sourceTree = "<group>"; };
+		EBCC411229A52282000EDD93 /* YMTGetDeviceName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YMTGetDeviceName.swift; sourceTree = "<group>"; };
+		EBCC411429A522F3000EDD93 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		EBCC411729A526EC000EDD93 /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		EBD631AF291AC78600E65C6C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EBD631B1291AC7A000E65C6C /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EBE586602837533B004B4C3E /* AppleHardwareInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppleHardwareInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +91,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EBCC410C29A51F86000EDD93 /* SystemInfo */ = {
+			isa = PBXGroup;
+			children = (
+				EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */,
+				EBCC410D29A52010000EDD93 /* SystemInfoModel.swift */,
+			);
+			path = SystemInfo;
+			sourceTree = "<group>";
+		};
+		EBCC410F29A521F1000EDD93 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				EBCC411729A526EC000EDD93 /* Localize.swift */,
+				EBCC411429A522F3000EDD93 /* Extensions.swift */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		EBCC411629A523F6000EDD93 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				EB646BEF2924E0B500C8E24D /* DeviceData.swift */,
+				EBCC411229A52282000EDD93 /* YMTGetDeviceName.swift */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
 		EBE586572837533B004B4C3E = {
 			isa = PBXGroup;
 			children = (
@@ -109,9 +144,10 @@
 				EBB78961290FBDAD009D4EC9 /* AppleHardwareInfo.entitlements */,
 				EBE586632837533B004B4C3E /* AppleHardwareInfoApp.swift */,
 				EBE586652837533B004B4C3E /* ContentView.swift */,
-				EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */,
 				EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */,
-				EB646BEF2924E0B500C8E24D /* DeviceData.swift */,
+				EBCC410C29A51F86000EDD93 /* SystemInfo */,
+				EBCC411629A523F6000EDD93 /* Device */,
+				EBCC410F29A521F1000EDD93 /* Others */,
 				EBD631B0291AC78600E65C6C /* Localizable.strings */,
 				EBE5866728375344004B4C3E /* Assets.xcassets */,
 				EBE5866928375344004B4C3E /* Preview Content */,
@@ -211,7 +247,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					EBE5865F2837533B004B4C3E = {
 						CreatedOnToolsVersion = 13.4;
@@ -282,9 +318,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBCC411829A526EC000EDD93 /* Localize.swift in Sources */,
+				EBCC410E29A52010000EDD93 /* SystemInfoModel.swift in Sources */,
 				EBCBE70C2930A66800C3B7A3 /* SystemInfoView.swift in Sources */,
 				EBE586662837533B004B4C3E /* ContentView.swift in Sources */,
+				EBCC411529A522F3000EDD93 /* Extensions.swift in Sources */,
 				EB646BF22924E5AF00C8E24D /* DeviceDetailView.swift in Sources */,
+				EBCC411329A52282000EDD93 /* YMTGetDeviceName.swift in Sources */,
 				EB646BF02924E0B500C8E24D /* DeviceData.swift in Sources */,
 				EBE586642837533B004B4C3E /* AppleHardwareInfoApp.swift in Sources */,
 			);
@@ -339,6 +379,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -399,6 +440,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
