@@ -16,33 +16,32 @@
 //       11/19 Alpha 1.7.1(10)
 //       11/26 Alpha 1.8.0(11)
 //       11/29 Alpha 1.8.1(12)
+//  2023/02/22 Alpha 1.8.2(13)
 //
 
 import SwiftUI
-//import Combine
 import BetterSafariView
-//import Foundation
 
 //バージョン情報
-let globalAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-let globalAppBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
+let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+let appBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 
 struct ContentView: View {
     
-    @State private var isWebView: Bool = false
+    @State private var shouldShowWebView: Bool = false
     
     var body: some View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink(destination: AllDeviceView(device: "iPhone")) {
+                    NavigationLink(destination: AllDeviceView(device: .iPhone)) {
                         HStack {
                             Image(systemName: "iphone")
                             Text("iPhone")
                                 .defaultStyle()
                         }
                     }
-                    NavigationLink(destination: AllDeviceView(device: "iPad")) {
+                    NavigationLink(destination: AllDeviceView(device: .iPad)) {
                         HStack {
                             Image(systemName: "ipad")
                             Text("iPad")
@@ -51,22 +50,28 @@ struct ContentView: View {
                     }
                 }
                 Section {
+                    //Device Name
                     Group {
-                        if let index = GetIndexInDeviceList.currentDevice() {
+                        let indexOfDeviceList = IndexOfDeviceList()
+                        if let index = indexOfDeviceList.currentDevice {
                             switch UIDevice.current.systemName {
-                            case "iOS":
-                                NavigationLink(destination: DeviceDetailView(device: iPhoneList[index])) {
+                            case OS.iOS.rawValue:
+                                NavigationLink(
+                                    destination: DeviceDetailView(device: Data.iPhoneList[index])
+                                ) {
                                     HStack {
                                         Image(systemName: "ipad.and.iphone")
-                                        Text(iPhoneList[index].deviceName)
+                                        Text(Data.iPhoneList[index].deviceName)
                                             .defaultStyle()
                                     }
                                 }
-                            case "iPadOS":
-                                NavigationLink(destination: DeviceDetailView(device: iPadList[index])) {
+                            case OS.iPadOS.rawValue:
+                                NavigationLink(
+                                    destination: DeviceDetailView(device: Data.iPadList[index])
+                                ) {
                                     HStack {
                                         Image(systemName: "ipad.and.iphone")
-                                        Text(iPadList[index].deviceName)
+                                        Text(Data.iPadList[index].deviceName)
                                             .defaultStyle()
                                     }
                                 }
@@ -80,17 +85,21 @@ struct ContentView: View {
                             }
                         }
                     }
-                    NavigationLink(destination: SystemDetailView()) {
+                    //System Info
+                    NavigationLink(destination: SystemInfoView()) {
                         HStack {
                             Image(systemName: "cpu")
-                            let systemVersionStr: String = UIDevice.current.systemName + " " + UIDevice.current.systemVersion
-                            DefaultListItem(item: "システム情報", element: systemVersionStr)
+                            DefaultListItem(
+                                item: "システム情報",
+                                element: UIDevice.current.systemName + " " + UIDevice.current.systemVersion
+                            )
                         }
                     }
                 } header: {
                     Text("この端末について")
                 }
                 Section {
+                    //apple.comへのリンク
                     Group {
                         if let url = URL(string: "https://www.apple.com/") {
                             let appleLinkText: LocalizedStringKey = "apple.com (デフォルトブラウザ)"
@@ -101,6 +110,7 @@ struct ContentView: View {
                             }
                         }
                     }
+                    //スピードテストへのリンク
                     Group {
                         if let speedtestUrl = URL(string: "https://fast.com") {
                             HStack {
@@ -112,8 +122,9 @@ struct ContentView: View {
                             }
                             .contentShape(Rectangle()) //セル全体をタップ領域にする
                             .onTapGesture {
-                                isWebView.toggle()
-                            }.safariView(isPresented: $isWebView) {
+                                shouldShowWebView = true
+                            }
+                            .safariView(isPresented: $shouldShowWebView) {
                                 SafariView(
                                     url: speedtestUrl,
                                     configuration: SafariView.Configuration(
@@ -131,8 +142,8 @@ struct ContentView: View {
                     Text("リンク")
                 }
                 Section {
-                    DefaultListItem(item: "バージョン", element: globalAppVersion)
-                    DefaultListItem(item: "ビルド", element: globalAppBuildNum)
+                    DefaultListItem(item: "バージョン", element: appVersion)
+                    DefaultListItem(item: "ビルド", element: appBuildNum)
                 } header: {
                     Text("このアプリについて")
                 }
@@ -140,93 +151,40 @@ struct ContentView: View {
             .navigationTitle("トップ")
             //iPadでの表示を調整
             .listStyle(.insetGrouped)
-            SystemDetailView()
         }
     }
-    
-    //CPUとメモリの使用率
-    //    // CPU使用率を0%~100%で取得
-    //    private func getCPUUsage() -> Float {
-    //        // カーネル処理の結果
-    //        var result: Int32
-    //        var threadList = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
-    //        var threadCount = UInt32(MemoryLayout<mach_task_basic_info_data_t>.size / MemoryLayout<natural_t>.size)
-    //        var threadInfo = thread_basic_info()
-    //
-    //        // スレッド情報を取得
-    //        result = withUnsafeMutablePointer(to: &threadList) {
-    //            $0.withMemoryRebound(to: thread_act_array_t?.self, capacity: 1) {
-    //                task_threads(mach_task_self_, $0, &threadCount)
-    //            }
-    //        }
-    //
-    //        if result != KERN_SUCCESS { return 0 }
-    //
-    //        // 各スレッドからCPU使用率を算出し合計を全体のCPU使用率とする
-    //        return (0 ..< Int(threadCount))
-    //            // スレッドのCPU使用率を取得
-    //            .compactMap { index -> Float? in
-    //                var threadInfoCount = UInt32(THREAD_INFO_MAX)
-    //                result = withUnsafeMutablePointer(to: &threadInfo) {
-    //                    $0.withMemoryRebound(to: integer_t.self, capacity: 1) {
-    //                        thread_info(threadList[index], UInt32(THREAD_BASIC_INFO), $0, &threadInfoCount)
-    //                    }
-    //                }
-    //                // スレッド情報が取れない = 該当スレッドのCPU使用率を0とみなす(基本nilが返ることはない)
-    //                if result != KERN_SUCCESS { return nil }
-    //                let isIdle = threadInfo.flags == TH_FLAGS_IDLE
-    //                // CPU使用率がスケール調整済みのため`TH_USAGE_SCALE`で除算し戻す
-    //                return !isIdle ? (Float(threadInfo.cpu_usage) / Float(TH_USAGE_SCALE)) * 100 : nil
-    //            }
-    //            // 合計算出
-    //            .reduce(0, +)
-    //    }
-    //
-    //    // 使用者が単位を把握できるようにするため
-    //    typealias MegaByte = UInt64
-    //    // 引数にenumで任意の単位を指定できるのが好ましい e.g. unit = .auto (デフォルト引数)
-    //    func getMemoryUsed() -> MegaByte? {
-    //        // タスク情報を取得
-    //        var info = mach_task_basic_info()
-    //        // `info`の値からその型に必要なメモリを取得
-    //        var count = UInt32(MemoryLayout.size(ofValue: info) / MemoryLayout<integer_t>.size)
-    //        let result = withUnsafeMutablePointer(to: &info) {
-    //            task_info(mach_task_self_,
-    //                      task_flavor_t(MACH_TASK_BASIC_INFO),
-    //                      // `task_info`の引数にするためにInt32のメモリ配置と解釈させる必要がある
-    //                      $0.withMemoryRebound(to: Int32.self, capacity: 1) { pointer in
-    //                        UnsafeMutablePointer<Int32>(pointer)
-    //                      }, &count)
-    //        }
-    //        // MB表記に変換して返却
-    //        return result == KERN_SUCCESS ? info.resident_size / 1024 / 1024 : nil
-    //    }
 }
 
-//Listにおける項目のインデックスを取得
-public class GetIndexInDeviceList {
-    //現在のデバイス
-    public static func currentDevice() -> Int? {
+//よく使う定数を保持する
+class IndexOfDeviceList {
+    //deviceList内におけるindex
+    var currentDevice: Int? {
+        //デバイス名のみの配列を作る
+        let iPhoneNameArray = Data.iPhoneList.map({ (list) -> String in
+            return list.deviceName
+        })
+        let iPadNameArray = Data.iPadList.map({ (list) -> String in
+            return list.deviceName
+        })
+        
         switch UIDevice.current.systemName {
-        case "iOS":
-            for i in 0 ..< iPhoneList.count {
-                if YMTGetDeviceName.getDeviceName() == iPhoneList[i].deviceName {
-                    return i
-                }
-            }
-        case "iPadOS":
-            for i in 0 ..< iPadList.count {
-                if YMTGetDeviceName.getDeviceName() == iPadList[i].deviceName {
-                    return i
-                }
-            }
+        case OS.iOS.rawValue:
+            return iPhoneNameArray.firstIndex(of: YMTGetDeviceName.getDeviceName())
+        case OS.iPadOS.rawValue:
+            return iPadNameArray.firstIndex(of: YMTGetDeviceName.getDeviceName())
         default:
-            break
+            return nil
         }
-        return nil
     }
 }
 
+//デバイスの種類を表すenum
+enum OS: String {
+    case iOS = "iOS"
+    case iPadOS = "iPadOS"
+}
+
+//itemとelementをList内の左右に配置する構造体
 struct DefaultListItem: View {
     
     let item: LocalizedStringKey
@@ -244,20 +202,19 @@ struct DefaultListItem: View {
 }
 
 extension Text {
+    //このアプリで用いる標準的なテキスト形式をdefaultStyleとして定義
     func defaultStyle() -> some View {
         self.font(.system(.callout, design: .rounded))
     }
 }
 
 extension LocalizedStringKey {
-    /**
-     Return localized value of thisLocalizedStringKey
-     */
+    //ローカライズされた値を返す
     public func toString() -> String {
         //use reflection
         let mirror = Mirror(reflecting: self)
         
-        //try to find 'key' attribute value
+        //key属性の値を探す
         let attributeLabelAndValue = mirror.children.first { (arg0) -> Bool in
             let (label, _) = arg0
             if(label == "key"){
@@ -267,8 +224,13 @@ extension LocalizedStringKey {
         }
         
         if(attributeLabelAndValue != nil) {
-            //ask for localization of found key via NSLocalizedString
-            return String.localizedStringWithFormat(NSLocalizedString(attributeLabelAndValue!.value as! String, comment: ""));
+            //NSLocalizedStringを介して、見つかったkeyのローカライズを要求する
+            return String.localizedStringWithFormat(
+                NSLocalizedString(
+                    attributeLabelAndValue!.value as! String,
+                    comment: ""
+                )
+            );
         }
         else {
             return "Swift LocalizedStringKey signature must have changed."
@@ -279,6 +241,6 @@ extension LocalizedStringKey {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-        DeviceDetailView(device: iPhoneList[0])
+        DeviceDetailView(device: Data.iPhoneList[0])
     }
 }

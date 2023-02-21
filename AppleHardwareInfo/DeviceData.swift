@@ -7,6 +7,32 @@
 
 import SwiftUI
 
+public class Data {
+    static let chipList = [
+        //    ChipData(chipName: "", manufacturingProcess: " nm", cpuCoreNum: " (P+E)", gpuCoreNum: "", neuralEngineCoreNum: ""),
+        ChipData(chipName: "A15 Bionic (5-GPU)", manufacturingProcess: "5 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "5", neuralEngineCoreNum: "16"),
+        ChipData(chipName: "A14 Bionic", manufacturingProcess: "5 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "4", neuralEngineCoreNum: "16"),
+        ChipData(chipName: "A11 Bionic", manufacturingProcess: "10 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "3", neuralEngineCoreNum: "2"),
+        ChipData(chipName: "A10 Fusion", manufacturingProcess: "16 nm", cpuCoreNum: "4 (2P+2E)", gpuCoreNum: "-"),
+        ChipData(chipName: "A7", manufacturingProcess: "28 nm", cpuCoreNum: "2", gpuCoreNum: "-"),
+    ]
+    
+    static let iPhoneList = [
+        //    DeviceData(deviceName: "", chip: "", memoryCapacity: " GB",  dispInch: " inch ()", dispResolution: " x  pixel", dispPpi: " ppi",rearCam: ["wide":" MP f/","ultraWide":" MP f/","tele":" MP f/"], frontCam: ["wide":" MP f/"], weight: " g", batteryCapacity: " mAh", releaseDate: "", technicalSpecificationsUrl: ""),
+        DeviceData(deviceName: "iPhone 12 Pro Max", chip: "A14 Bionic", memoryCapacity: "6 GB",  dispInch: "6.7 inch (OLED)", dispResolution: "2778 x 1284 pixel", dispPpi: "458 ppi",rearCam: ["wide":"12 MP, f/1.6","ultraWide":"12 MP, f/2.4","tele":"12 MP, f/2.2"], frontCam: ["wide":"12 MP, f/2.2"], weight: "226 g", batteryCapacity: "3687 mAh", releaseDate: "2020/11/13", technicalSpecificationsUrl: "kb/SP832"),
+        DeviceData(deviceName: "iPhone 12 Pro", chip: "A14 Bionic", memoryCapacity: "6 GB",  dispInch: "6.1 inch (OLED)", dispResolution: "2532 x 1170 pixel", dispPpi: "460 ppi",rearCam: ["wide":"12 MP, f/1.6","ultraWide":"12 MP, f/2.4","tele":"12 MP, f/2.0"], frontCam: ["wide":"12 MP, f/2.2"], weight: "187 g", batteryCapacity: "2775 mAh", releaseDate: "2020/10/23", technicalSpecificationsUrl: "kb/SP831"),
+        DeviceData(deviceName: "iPhone 12", chip: "A14 Bionic", memoryCapacity: "4 GB",  dispInch: "6.1 inch (OLED)", dispResolution: "2532 x 1170 pixel", dispPpi: "460 ppi",rearCam: ["wide":"12 MP, f/1.6","ultraWide":"12 MP, f/2.4"], frontCam: ["wide":"12 MP, f/2.2"], weight: "162 g", batteryCapacity: "2775 mAh", releaseDate: "2020/10/23", technicalSpecificationsUrl: "kb/SP830"),
+        DeviceData(deviceName: "iPhone 12 mini", chip: "A14 Bionic", memoryCapacity: "4 GB",  dispInch: "5.4 inch (OLED)", dispResolution: "2340 x 1080 pixel", dispPpi: "476 ppi",rearCam: ["wide":"12 MP, f/1.6","ultraWide":"12 MP, f/2.4"],frontCam: ["wide":"12 MP, f/2.2"], weight: "133 g", batteryCapacity: "2227 mAh", releaseDate: "2020/11/13", technicalSpecificationsUrl: "kb/SP829"),
+        DeviceData(deviceName: "iPhone 8", chip: "A11 Bionic", memoryCapacity: "2 GB",  dispInch: "4.7 inch (IPS)", dispResolution: "1334 x 750 pixel", dispPpi: "326 ppi",rearCam: ["wide":"12 MP, f/1.8"], frontCam: ["wide":"7 MP, f/2.2"], weight: "148 g", batteryCapacity: "1821 mAh", releaseDate: "2017/09/22", technicalSpecificationsUrl: "kb/SP767"),
+        DeviceData(deviceName: "iPhone 7", chip: "A10 Fusion", memoryCapacity: "2 GB (LPDDR4)",  dispInch: "4.7 inch (IPS)", dispResolution: "1334 x 750 pixel", dispPpi: "326 ppi",rearCam: ["wide":"12 MP, f/1.8"], frontCam: ["wide":"7 MP, f/2.2"], weight: "138 g", batteryCapacity: "1960 mAh", releaseDate: "2016/09/16", technicalSpecificationsUrl: "kb/SP743"),
+        DeviceData(deviceName: "iPhone 5s", chip: "A7", memoryCapacity: "1 GB (LPDDR3)",  dispInch: "4 inch (IPS)", dispResolution: "1136 x 640 pixel", dispPpi: "326 ppi",rearCam: ["wide":"8 MP, f/2.2"], frontCam: ["wide":"1.2 MP, f/2.4"], weight: "112 g", batteryCapacity: "1560 mAh", releaseDate: "2013/09/20", technicalSpecificationsUrl: "kb/sp685"),
+    ]
+    
+    static let iPadList = [
+        DeviceData(deviceName: "iPad mini (6th generation)", chip: "A15 Bionic (5-GPU)", memoryCapacity: "4 GB",  dispInch: "8.3 inch (IPS)", dispResolution: "2,266 x 1,488 pixel", dispPpi: "326 ppi", rearCam: ["wide":"12 MP, f/1.8"], frontCam: ["ultraWide":"12 MP, f/2.2"], weight: "293 g (Cellular: 297 g)", batteryCapacity: "5124 mAh", releaseDate: "2021/09/24", technicalSpecificationsUrl: "kb/SP850"),
+    ]
+}
+
 struct ChipData: Identifiable {
     var id = UUID()
     var chipName: String //チップ名
@@ -15,15 +41,6 @@ struct ChipData: Identifiable {
     var gpuCoreNum: String //GPUコア数
     var neuralEngineCoreNum: String? //ニューラルエンジンコア数
 }
-
-let chipList = [
-//    ChipData(chipName: "", manufacturingProcess: " nm", cpuCoreNum: " (P+E)", gpuCoreNum: "", neuralEngineCoreNum: ""),
-    ChipData(chipName: "A15 Bionic (5-GPU)", manufacturingProcess: "5 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "5", neuralEngineCoreNum: "16"),
-    ChipData(chipName: "A14 Bionic", manufacturingProcess: "5 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "4", neuralEngineCoreNum: "16"),
-    ChipData(chipName: "A11 Bionic", manufacturingProcess: "10 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "3", neuralEngineCoreNum: "2"),
-    ChipData(chipName: "A10 Fusion", manufacturingProcess: "16 nm", cpuCoreNum: "4 (2P+2E)", gpuCoreNum: "-"),
-    ChipData(chipName: "A7", manufacturingProcess: "28 nm", cpuCoreNum: "2", gpuCoreNum: "-"),
-]
 
 struct DeviceData: Identifiable {
     var id = UUID()
@@ -40,21 +57,6 @@ struct DeviceData: Identifiable {
     var releaseDate: String //発売日
     var technicalSpecificationsUrl: String //技術仕様リンク
 }
-
-let iPhoneList = [
-    //    DeviceData(deviceName: "", chip: "", memoryCapacity: " GB",  dispInch: " inch ()", dispResolution: " x  pixel", dispPpi: " ppi",rearCam: ["wide":" MP f/","ultraWide":" MP f/","tele":" MP f/"], frontCam: ["wide":" MP f/"], weight: " g", batteryCapacity: " mAh", releaseDate: "", technicalSpecificationsUrl: ""),
-    DeviceData(deviceName: "iPhone 12 Pro Max", chip: "A14 Bionic", memoryCapacity: "6 GB",  dispInch: "6.7 inch (OLED)", dispResolution: "2778 x 1284 pixel", dispPpi: "458 ppi",rearCam: ["wide":"12 MP, f/1.6","ultraWide":"12 MP, f/2.4","tele":"12 MP, f/2.2"], frontCam: ["wide":"12 MP, f/2.2"], weight: "226 g", batteryCapacity: "3687 mAh", releaseDate: "2020/11/13", technicalSpecificationsUrl: "kb/SP832"),
-    DeviceData(deviceName: "iPhone 12 Pro", chip: "A14 Bionic", memoryCapacity: "6 GB",  dispInch: "6.1 inch (OLED)", dispResolution: "2532 x 1170 pixel", dispPpi: "460 ppi",rearCam: ["wide":"12 MP, f/1.6","ultraWide":"12 MP, f/2.4","tele":"12 MP, f/2.0"], frontCam: ["wide":"12 MP, f/2.2"], weight: "187 g", batteryCapacity: "2775 mAh", releaseDate: "2020/10/23", technicalSpecificationsUrl: "kb/SP831"),
-    DeviceData(deviceName: "iPhone 12", chip: "A14 Bionic", memoryCapacity: "4 GB",  dispInch: "6.1 inch (OLED)", dispResolution: "2532 x 1170 pixel", dispPpi: "460 ppi",rearCam: ["wide":"12 MP, f/1.6","ultraWide":"12 MP, f/2.4"], frontCam: ["wide":"12 MP, f/2.2"], weight: "162 g", batteryCapacity: "2775 mAh", releaseDate: "2020/10/23", technicalSpecificationsUrl: "kb/SP830"),
-    DeviceData(deviceName: "iPhone 12 mini", chip: "A14 Bionic", memoryCapacity: "4 GB",  dispInch: "5.4 inch (OLED)", dispResolution: "2340 x 1080 pixel", dispPpi: "476 ppi",rearCam: ["wide":"12 MP, f/1.6","ultraWide":"12 MP, f/2.4"],frontCam: ["wide":"12 MP, f/2.2"], weight: "133 g", batteryCapacity: "2227 mAh", releaseDate: "2020/11/13", technicalSpecificationsUrl: "kb/SP829"),
-    DeviceData(deviceName: "iPhone 8", chip: "A11 Bionic", memoryCapacity: "2 GB",  dispInch: "4.7 inch (IPS)", dispResolution: "1334 x 750 pixel", dispPpi: "326 ppi",rearCam: ["wide":"12 MP, f/1.8"], frontCam: ["wide":"7 MP, f/2.2"], weight: "148 g", batteryCapacity: "1821 mAh", releaseDate: "2017/09/22", technicalSpecificationsUrl: "kb/SP767"),
-    DeviceData(deviceName: "iPhone 7", chip: "A10 Fusion", memoryCapacity: "2 GB (LPDDR4)",  dispInch: "4.7 inch (IPS)", dispResolution: "1334 x 750 pixel", dispPpi: "326 ppi",rearCam: ["wide":"12 MP, f/1.8"], frontCam: ["wide":"7 MP, f/2.2"], weight: "138 g", batteryCapacity: "1960 mAh", releaseDate: "2016/09/16", technicalSpecificationsUrl: "kb/SP743"),
-    DeviceData(deviceName: "iPhone 5s", chip: "A7", memoryCapacity: "1 GB (LPDDR3)",  dispInch: "4 inch (IPS)", dispResolution: "1136 x 640 pixel", dispPpi: "326 ppi",rearCam: ["wide":"8 MP, f/2.2"], frontCam: ["wide":"1.2 MP, f/2.4"], weight: "112 g", batteryCapacity: "1560 mAh", releaseDate: "2013/09/20", technicalSpecificationsUrl: "kb/sp685"),
-]
-
-let iPadList = [
-    DeviceData(deviceName: "iPad mini (6th generation)", chip: "A15 Bionic (5-GPU)", memoryCapacity: "4 GB",  dispInch: "8.3 inch (IPS)", dispResolution: "2,266 x 1,488 pixel", dispPpi: "326 ppi", rearCam: ["wide":"12 MP, f/1.8"], frontCam: ["ultraWide":"12 MP, f/2.2"], weight: "293 g (Cellular: 297 g)", batteryCapacity: "5124 mAh", releaseDate: "2021/09/24", technicalSpecificationsUrl: "kb/SP850"),
-]
 
 // MARK: YMTGetDeviceName
 public class YMTGetDeviceName {

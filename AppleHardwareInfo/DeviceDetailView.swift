@@ -8,125 +8,91 @@
 import SwiftUI
 import BetterSafariView
 
+enum Devices: String {
+    case iPhone = "iPhone"
+    case iPad = "iPad"
+}
+
 struct AllDeviceView: View {
     
-    var device: String
+    var device: Devices
     
     @State private var searchText: String = ""
     
-//    @State private var isFlag = false
-    
     //デバイス名のみの配列を作る
-    let iPhoneNameArray = iPhoneList.map({ (list) -> String in
+    let iPhoneNameArray = Data.iPhoneList.map({ (list) -> String in
         return list.deviceName
     })
-    let iPadNameArray = iPadList.map({ (list) -> String in
+    let iPadNameArray = Data.iPadList.map({ (list) -> String in
         return list.deviceName
     })
     
-//    var filteredDevices: [String] {
-//        deviceNameArray.filter { deviceName in
-//            deviceNameArray.isFlag
-//        }
-//    }
-    
-    var body: some View {
-        List {
-            ForEach(searchResults, id: \.self) { item in
-                if let indexOfDevice = getIndexOfDevice(deviceNameStr: item) {
-                    switch device {
-                    case "iPhone":
-                        NavigationLink(destination: DeviceDetailView(device: iPhoneList[indexOfDevice])) {
-                            Text(item)
-                                .defaultStyle()
-                        }
-                    case "iPad":
-                        NavigationLink(destination: DeviceDetailView(device: iPadList[indexOfDevice])) {
-                            Text(item)
-                                .defaultStyle()
-                        }
-                    default:
-                        Text("Error: Valid value was not passed.")
-                    }
-//                    .swipeActions(edge: .leading) {
-//                        Button {
-//                            print("flag action.")
-//                            isFlag = true
-//                        } label: {
-//                            Image(systemName: "pin.fill")
-//                        }.tint(.orange)
-//                    }
-                }
-            }
-        }
-        .searchable(text: $searchText)
-        .navigationTitle(device)
-        .navigationBarTitleDisplayMode(.inline)
-    }
-    
+    //検索結果を格納する配列
     private var searchResults: [String] {
         switch device {
-        case "iPhone":
+        case .iPhone:
             if searchText.isEmpty {
                 return iPhoneNameArray
             } else {
                 return iPhoneNameArray.filter { $0.contains(searchText) }
             }
-        case "iPad":
+        case .iPad:
             if searchText.isEmpty {
                 return iPadNameArray
             } else {
                 return iPadNameArray.filter { $0.contains(searchText) }
             }
-        default:
-            return Array()
         }
     }
-    
-    private func getIndexOfDevice(deviceNameStr: String) -> Int? {
-        switch device {
-        case "iPhone":
-            return iPhoneNameArray.firstIndex(of: deviceNameStr)
-        case "iPad":
-            return iPadNameArray.firstIndex(of: deviceNameStr)
-        default:
-            return nil
-        }
-    }
-}
-
-struct ChipDetailView: View {
-    
-    var chip: ChipData
     
     var body: some View {
-        Section {
-            DefaultListItem(item: "SoC", element: chip.chipName)
-            DefaultListItem(item: "プロセスルール", element: chip.manufacturingProcess)
-            DefaultListItem(item: "CPUコア数", element: chip.cpuCoreNum)
-            DefaultListItem(item: "GPUコア数", element: chip.gpuCoreNum)
-            if chip.neuralEngineCoreNum != nil {
-                DefaultListItem(item: "Neural Engineコア数", element: chip.neuralEngineCoreNum!)
+        List {
+            ForEach(searchResults, id: \.self) { item in
+                switch device {
+                case .iPhone:
+                    if let index = iPhoneNameArray.firstIndex(of: item) {
+                        NavigationLink(
+                            destination: DeviceDetailView(device: Data.iPhoneList[index])
+                        ) {
+                            Text(item)
+                                .defaultStyle()
+                        }
+                    }
+                case .iPad:
+                    if let index = iPadNameArray.firstIndex(of: item) {
+                        NavigationLink(
+                            destination: DeviceDetailView(device: Data.iPadList[index])
+                        ) {
+                            Text(item)
+                                .defaultStyle()
+                        }
+                    }
+                }
             }
-        } header: {
-            Text("チップ")
-        } footer: {
-            Text("P: Performance  E: Efficiency")
         }
+        .searchable(text: $searchText)
+        .navigationTitle(device.rawValue)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct DeviceDetailView: View {
     
-    @State private var isWebView: Bool = false
-    @State private var isExplanationView: Bool = false
-    
     var device: DeviceData
+    
+    @State private var shouldShowWebView: Bool = false
+    @State private var shoudShowGlossaryView: Bool = false
+    
+    //チップ名のみの配列を作る
+    let chipNameArray = Data.chipList.map({ (list) -> String in
+        return list.chipName
+    })
     
     var body: some View {
         List {
-            if let index = getIndexOfChip() {
-                ChipDetailView(chip: chipList[index])
+            //chipListにおける現在のデバイスに搭載されているチップのindexを探してindexに代入
+            if let index = chipNameArray.firstIndex(of: device.chip) {
+                ChipDetailView(chip: Data.chipList[index])
             } else {
                 Text("Error: Chip data is not registered.")
             }
@@ -173,7 +139,9 @@ struct DeviceDetailView: View {
                 Text("その他")
             }
             Section {
-                if let technicalSpecificationsUrl = "https://support.apple.com/" + device.technicalSpecificationsUrl {
+                if let technicalSpecificationsUrl = URL(
+                    string: "https://support.apple.com/" + device.technicalSpecificationsUrl
+                ) {
                     HStack {
                         Text("技術仕様 (support.apple.com)")
                             .foregroundColor(.blue)
@@ -181,10 +149,10 @@ struct DeviceDetailView: View {
                     }
                     .contentShape(Rectangle()) //セル全体をタップ領域にする
                     .onTapGesture {
-                        isWebView.toggle()
-                    }.safariView(isPresented: $isWebView) {
+                        shouldShowWebView.toggle()
+                    }.safariView(isPresented: $shouldShowWebView) {
                         SafariView(
-                            url: URL(string: technicalSpecificationsUrl)!,
+                            url: technicalSpecificationsUrl,
                             configuration: SafariView.Configuration(
                                 entersReaderIfAvailable: false,
                                 barCollapsingEnabled: true
@@ -206,12 +174,12 @@ struct DeviceDetailView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    isExplanationView.toggle()
+                    shoudShowGlossaryView = true
                 }) {
                     Image(systemName: "info.circle")
                 }
-                .sheet(isPresented: $isExplanationView, content: {
-                    DeviceDetailGlossaryView()
+                .sheet(isPresented: $shoudShowGlossaryView, content: {
+                    GlossaryView() //用語集
                 })
             }
         }
@@ -219,13 +187,25 @@ struct DeviceDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    private func getIndexOfChip() -> Int? {
-        for i in 0 ..< chipList.count {
-            if device.chip == chipList[i].chipName {
-                return i
+    struct ChipDetailView: View {
+        
+        var chip: ChipData
+        
+        var body: some View {
+            Section {
+                DefaultListItem(item: "SoC", element: chip.chipName)
+                DefaultListItem(item: "プロセスルール", element: chip.manufacturingProcess)
+                DefaultListItem(item: "CPUコア数", element: chip.cpuCoreNum)
+                DefaultListItem(item: "GPUコア数", element: chip.gpuCoreNum)
+                if chip.neuralEngineCoreNum != nil {
+                    DefaultListItem(item: "Neural Engineコア数", element: chip.neuralEngineCoreNum!)
+                }
+            } header: {
+                Text("チップ")
+            } footer: {
+                Text("P: Performance  E: Efficiency")
             }
         }
-        return nil
     }
 }
 
@@ -245,13 +225,13 @@ public class Localize {
                 let commaAdded: String = formatter.string(from: NSNumber(value: float))! //コンマを追加
                 result.append(commaAdded)
             } else {
-                //Floatへ変換できなかった場合
+                //Floatへ変換できなかった場合は要素をそのまま追加する(単位などがこれにあたる)
                 result.append(array[i])
             }
             result.append(" ")
         }
         
-        return String(result.dropLast()) //最後の空白を取り除いて返す
+        return String(result.dropLast()) //最後の余分な空白を取り除いて返す
     }
     
     //yyyy/MM/ddの形式をローカライズする
@@ -273,7 +253,7 @@ public class Localize {
     }
 }
 
-struct DeviceDetailGlossaryView: View {
+struct GlossaryView: View {
     
     @Environment(\.dismiss) private var dismiss
     
@@ -339,88 +319,84 @@ struct DeviceDetailGlossaryView: View {
                     .frame(height: 7)
                 LongText(element.toString())
             }
-//            .listRowSeparator(.hidden)
-//            .listRowBackground(Color(.white)) //タップした際の灰色を消す
         }
-    }
-}
+        
+        struct LongText: View {
 
-struct LongText: View {
+            /* 全てのテキストを表示するかを指定する */
+            @State private var expanded: Bool = false
 
-    /* Indicates whether the user want to see all the text or not. */
-    @State private var expanded: Bool = false
+            /* テキストが切り捨てられた状態で表示されているかどうかを示す */
+            @State private var truncated: Bool = false
 
-    /* Indicates whether the text has been truncated in its display. */
-    @State private var truncated: Bool = false
+            private var text: String
 
-    private var text: String
+            var lineLimit = 3
 
-    var lineLimit = 3
+            init(_ text: String) {
+                self.text = text
+            }
 
-    init(_ text: String) {
-        self.text = text
-    }
-
-    var body: some View {
-        VStack {
-            // Render the real text (which might or might not be limited)
-            HStack {
-                Text(text)
-                    .defaultStyle()
-                    .lineLimit(expanded ? nil : lineLimit)
-                
-                    .background(
-                        
-                        // Render the limited text and measure its size
+            var body: some View {
+                VStack {
+                    // 実際のテキストをレンダリングする(制限されるかもしれないし、されないかもしれない)
+                    HStack {
                         Text(text)
                             .defaultStyle()
-                            .lineLimit(lineLimit)
-                            .background(GeometryReader { displayedGeometry in
-                                
-                                // Create a ZStack with unbounded height to allow the inner Text as much
-                                // height as it likes, but no extra width.
-                                ZStack {
-                                    
-                                    // Render the text without restrictions and measure its size
-                                    Text(self.text)
-                                        .defaultStyle()
-                                        .background(GeometryReader { fullGeometry in
+                            .lineLimit(expanded ? nil : lineLimit)
+                        
+                            .background(
+                                // 限定されたテキストをレンダリングし、そのサイズを測定する
+                                Text(text)
+                                    .defaultStyle()
+                                    .lineLimit(lineLimit)
+                                    .background(GeometryReader { displayedGeometry in
+                                        
+                                        // 高さが制限されていないZStackを作成する。
+                                        // 内側のTextに好きなだけ高さを与えるが、余分な幅は与えないようにする。
+                                        ZStack {
                                             
-                                            // And compare the two
-                                            Color.clear.onAppear {
-                                                self.truncated = fullGeometry.size.height > displayedGeometry.size.height
-                                            }
-                                        })
-                                }
-                                .frame(height: .greatestFiniteMagnitude)
-                            })
-                            .hidden() // Hide the background
-                    )
-                Spacer()
+                                            // テキストを無制限にレンダリングし、サイズを測定することができます。
+                                            Text(self.text)
+                                                .defaultStyle()
+                                                .background(GeometryReader { fullGeometry in
+                                                    
+                                                    // そして、2つを比較する
+                                                    Color.clear.onAppear {
+                                                        self.truncated = fullGeometry.size.height > displayedGeometry.size.height
+                                                    }
+                                                })
+                                        }
+                                        .frame(height: .greatestFiniteMagnitude)
+                                    })
+                                    .hidden() // 背景を隠す
+                            )
+                        Spacer()
+                    }
+                    Spacer()
+                        .frame(height: 7)
+                    HStack {
+                        if truncated { toggleButton }
+                        Spacer()
+                    }
+                }
             }
-            Spacer()
-                .frame(height: 7)
-            HStack {
-                if truncated { toggleButton }
-                Spacer()
-            }
-        }
-    }
 
-    var toggleButton: some View {
-        Button(action: { self.expanded.toggle() }) {
-            Text(self.expanded ? "閉じる" : "さらに表示")
-                .font(.caption).bold()
-                .foregroundColor(.blue)
+            var toggleButton: some View {
+                Button(action: { self.expanded.toggle() }) {
+                    Text(self.expanded ? "閉じる" : "さらに表示")
+                        .font(.caption).bold()
+                        .foregroundColor(.blue)
+                }
+            }
         }
     }
 }
 
 struct DeviceDetailView_Previews: PreviewProvider {
     static var previews: some View {
-//        AllDeviceView(device: "iPhone")
-//        ChipDetailView(chip: chipList[0])
-        DeviceDetailView(device: iPhoneList[0])
-        DeviceDetailGlossaryView()
+        AllDeviceView(device: .iPhone)
+        DeviceDetailView(device: Data.iPhoneList[0])
+        GlossaryView()
     }
 }
