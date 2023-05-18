@@ -30,7 +30,7 @@ struct SystemInfoView: View {
                 Group {
                     let str: String = ProcessInfo.processInfo.operatingSystemVersionString
                     let array: [String] = str.components(separatedBy: " ")
-                    let systemBuildNum: String = String(array[3].dropLast(1)) //カッコを取る
+                    let systemBuildNum: String = String(array.last!.dropLast(1))
                     DefaultListItem(item: "システムビルド", element: systemBuildNum)
                 }
             } header: {
