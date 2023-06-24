@@ -1,4 +1,4 @@
-# Hardwares(仮)
+# Hardwares
 
 #### Appleのハードウェアに関する情報を簡単に確認できるiOSアプリです。
 
