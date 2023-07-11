@@ -8,7 +8,7 @@
 import SwiftUI
 import BetterSafariView
 
-struct AllDeviceView: View {
+struct AllDeviceListView: View {
     
     var device: Devices
     
@@ -346,7 +346,7 @@ struct GlossaryView: View {
 
 struct DeviceDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        AllDeviceView(device: .iPhone)
+        AllDeviceListView(device: .iPhone)
         DeviceDetailView(device: Data.iPhoneList[0])
         GlossaryView()
     }

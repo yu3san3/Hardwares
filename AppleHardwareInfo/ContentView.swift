@@ -30,114 +30,26 @@ let appBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 struct ContentView: View {
     
     @State private var shouldShowWebView: Bool = false
+
+    private let appleUrlStr = "https://www.apple.com/"
+    private let speedTestUrlStr = "https://fast.com"
     
     var body: some View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink(destination: AllDeviceView(device: .iPhone)) {
-                        HStack {
-                            Image(systemName: "iphone")
-                            Text("iPhone")
-                                .defaultStyle()
-                        }
-                    }
-                    NavigationLink(destination: AllDeviceView(device: .iPad)) {
-                        HStack {
-                            Image(systemName: "ipad")
-                            Text("iPad")
-                                .defaultStyle()
-                        }
-                    }
+                    linkToAllDeviceViewOfiPhone
+                    linkToAllDeviceViewOfiPad
                 }
                 Section {
-                    //Device Name
-                    Group {
-                        if let index = Data.currentDeviceIndex {
-                            switch UIDevice.current.systemName {
-                            case OS.iOS.rawValue:
-                                NavigationLink(
-                                    destination: DeviceDetailView(device: Data.iPhoneList[index])
-                                ) {
-                                    HStack {
-                                        Image(systemName: "ipad.and.iphone")
-                                        Text(Data.iPhoneList[index].deviceName)
-                                            .defaultStyle()
-                                    }
-                                }
-                            case OS.iPadOS.rawValue:
-                                NavigationLink(
-                                    destination: DeviceDetailView(device: Data.iPadList[index])
-                                ) {
-                                    HStack {
-                                        Image(systemName: "ipad.and.iphone")
-                                        Text(Data.iPadList[index].deviceName)
-                                            .defaultStyle()
-                                    }
-                                }
-                            default:
-                                Text("Error: This app does not support the running OS.")
-                            }
-                        } else {
-                            HStack {
-                                Image(systemName: "ipad.and.iphone")
-                                SplitTextListItem(title: "端末名", element: UIDevice.current.name)
-                            }
-                        }
-                    }
-                    //System Info
-                    NavigationLink(destination: SystemInfoView()) {
-                        HStack {
-                            Image(systemName: "cpu")
-                            SplitTextListItem(
-                                title: "システム情報",
-                                element: UIDevice.current.systemName + " " + UIDevice.current.systemVersion
-                            )
-                        }
-                    }
+                    makeLinkViewToDeviceDetailViewOfCurrentDevice()
+                    linkToSystemInfoView
                 } header: {
                     Text("この端末について")
                 }
                 Section {
-                    //apple.comへのリンク
-                    Group {
-                        if let url = URL(string: "https://www.apple.com/") {
-                            let appleLinkText: LocalizedStringKey = "apple.com (デフォルトブラウザ)"
-                            HStack {
-                                Image(systemName: "safari")
-                                    .foregroundColor(.blue)
-                                Link(appleLinkText, destination: url)
-                            }
-                        }
-                    }
-                    //スピードテストへのリンク
-                    Group {
-                        if let speedtestUrl = URL(string: "https://fast.com") {
-                            HStack {
-                                Image(systemName: "speedometer")
-                                    .foregroundColor(.blue)
-                                Text("スピードテスト (fast.com)")
-                                    .foregroundColor(.blue)
-                                Spacer() //セル全体をタップ領域にする
-                            }
-                            .contentShape(Rectangle()) //セル全体をタップ領域にする
-                            .onTapGesture {
-                                shouldShowWebView = true
-                            }
-                            .safariView(isPresented: $shouldShowWebView) {
-                                SafariView(
-                                    url: speedtestUrl,
-                                    configuration: SafariView.Configuration(
-                                        entersReaderIfAvailable: false,
-                                        barCollapsingEnabled: true
-                                    )
-                                )
-                                .preferredBarAccentColor(.clear)
-                                .preferredControlAccentColor(.accentColor)
-                                .dismissButtonStyle(.done)
-                            }
-                        }
-                    }
+                    makeLinkViewToApple()
+                    makeLinkViewToSpeedTest()
                 } header: {
                     Text("リンク")
                 }
@@ -155,9 +67,121 @@ struct ContentView: View {
     }
 }
 
+private extension ContentView {
+    var linkToAllDeviceViewOfiPhone: some View {
+        NavigationLink(destination: AllDeviceListView(device: .iPhone)) {
+            HStack {
+                Image(systemName: "iphone")
+                Text("iPhone")
+                    .defaultStyle()
+            }
+        }
+    }
+
+    var linkToAllDeviceViewOfiPad: some View {
+        NavigationLink(destination: AllDeviceListView(device: .iPad)) {
+            HStack {
+                Image(systemName: "ipad")
+                Text("iPad")
+                    .defaultStyle()
+            }
+        }
+    }
+
+    @ViewBuilder
+    func makeLinkViewToDeviceDetailViewOfCurrentDevice() -> some View {
+        if let index = Data.currentDeviceIndex {
+            switch UIDevice.current.systemName {
+            case OS.iOS.rawValue:
+                NavigationLink(
+                    destination: DeviceDetailView(device: Data.iPhoneList[index])
+                ) {
+                    HStack {
+                        Image(systemName: "ipad.and.iphone")
+                        Text(Data.iPhoneList[index].deviceName)
+                            .defaultStyle()
+                    }
+                }
+            case OS.iPadOS.rawValue:
+                NavigationLink(
+                    destination: DeviceDetailView(device: Data.iPadList[index])
+                ) {
+                    HStack {
+                        Image(systemName: "ipad.and.iphone")
+                        Text(Data.iPadList[index].deviceName)
+                            .defaultStyle()
+                    }
+                }
+            default:
+                Text("Error: This app does not support the running OS.")
+            }
+        } else {
+            HStack {
+                Image(systemName: "ipad.and.iphone")
+                SplitTextListItem(title: "端末名", element: UIDevice.current.name)
+            }
+        }
+    }
+
+    var linkToSystemInfoView: some View {
+        NavigationLink(destination: SystemInfoView()) {
+            HStack {
+                Image(systemName: "cpu")
+                SplitTextListItem(
+                    title: "システム情報",
+                    element: "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"
+                )
+            }
+        }
+    }
+
+    @ViewBuilder
+    func makeLinkViewToApple() -> some View {
+        if let url = URL(string: appleUrlStr) {
+            HStack {
+                Image(systemName: "safari")
+                    .foregroundColor(.blue)
+                Link("apple.com (デフォルトブラウザ)", destination: url)
+            }
+        } else {
+            Text("Error: The link to apple.com is invalidate")
+        }
+    }
+
+    @ViewBuilder
+    func makeLinkViewToSpeedTest() -> some View {
+        if let speedTestUrl = URL(string: speedTestUrlStr) {
+            HStack {
+                Image(systemName: "speedometer")
+                    .foregroundColor(.blue)
+                Text("スピードテスト (fast.com)")
+                    .foregroundColor(.blue)
+                Spacer() //セル全体をタップ領域にする
+            }
+            .contentShape(Rectangle()) //セル全体をタップ領域にする
+            .onTapGesture {
+                shouldShowWebView = true
+            }
+            .safariView(isPresented: $shouldShowWebView) {
+                SafariView(
+                    url: speedTestUrl,
+                    configuration: SafariView.Configuration(
+                        entersReaderIfAvailable: false,
+                        barCollapsingEnabled: true
+                    )
+                )
+                .preferredBarAccentColor(.clear)
+                .preferredControlAccentColor(.accentColor)
+                .dismissButtonStyle(.done)
+            }
+        } else {
+            Text("Error: The link to speed test is invalidate")
+        }
+    }
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-        DeviceDetailView(device: Data.iPhoneList[0])
     }
 }
