@@ -127,8 +127,8 @@ struct SystemInfoView: View {
                 }
             }
             Section {
-                BatteryListItem(types: .revisedCapacity, item: "容量", placeholder: "0 mAh")
-                BatteryListItem(types: .maximumCapacity, item: "最大容量", placeholder: "100 %")
+                BatteryCorrectionListItem(type: .revisedCapacity)
+                BatteryCorrectionListItem(type: .maximumCapacity)
                 SplitTextListItem(
                     title: "実際の容量",
                     element: Localize.numbers(battery.actualCapacity)
@@ -142,36 +142,48 @@ struct SystemInfoView: View {
     }
 }
 
-struct BatteryListItem: View {
+struct BatteryCorrectionListItem: View {
     
-    let types: ObjectTypes
+    let type: CorrectionType
     
-    enum ObjectTypes {
+    enum CorrectionType {
         case revisedCapacity
         case maximumCapacity
     }
     
-    let item: LocalizedStringKey
-    let placeholder: LocalizedStringKey
-    
-    //Listの右側
+    private let title: LocalizedStringKey
     private var element: String {
-        switch types {
+        switch type {
         case .revisedCapacity:
             return battery.revisedCapacity
         case .maximumCapacity:
             return battery.maximumCapacity
         }
     }
+
+    private let placeholder: LocalizedStringKey
+
+    init(type: CorrectionType) {
+        self.type = type
+
+        switch type {
+        case .revisedCapacity:
+            self.title = "容量"
+            self.placeholder = "0 mAh"
+        case .maximumCapacity:
+            self.title = "最大容量"
+            self.placeholder = "100 %"
+        }
+    }
     
-    @State private var isTapped: Bool = false
+    @State private var isShowingAlert: Bool = false
     @State private var textFieldContent: String = ""
     
     @ObservedObject var battery = Battery()
     
     var body: some View {
         HStack {
-            Text(item)
+            Text(title)
                 .defaultStyle()
             Spacer()
             Text(Localize.numbers(element))
@@ -184,11 +196,11 @@ struct BatteryListItem: View {
         .onTapGesture {
             let array: [String] = element.components(separatedBy: " ")
             textFieldContent = String(array[0])
-            self.isTapped = true
+            self.isShowingAlert = true
         }
         .alert(
-            "\(item.toString())の補正",
-            isPresented: $isTapped,
+            "\(title.toString())の補正",
+            isPresented: $isShowingAlert,
             actions: {
                 TextField(placeholder, text: $textFieldContent)
                     .keyboardType(.numberPad)
@@ -205,7 +217,7 @@ struct BatteryListItem: View {
                         }
                     }
                 Button("OK") {
-                    switch types {
+                    switch type {
                     case .revisedCapacity:
                         battery.revisedCapacity = textFieldContent + " mAh"
                     case .maximumCapacity:
