@@ -92,44 +92,44 @@ struct DeviceDetailView: View {
                 Text("Error: Chip data is not registered.")
             }
             Section {
-                DefaultListItem(item: "容量", element: device.memoryCapacity)
+                SplitTextListItem(title: "容量", element: device.memoryCapacity)
             } header: {
                 Text("メモリ")
             }
             Section {
-                DefaultListItem(item: "サイズ", element: Localize.numbers(device.dispInch))
-                DefaultListItem(item: "解像度", element: Localize.numbers(device.dispResolution))
-                DefaultListItem(item: "画素密度", element: device.dispPpi)
+                SplitTextListItem(title: "サイズ", element: Localize.numbers(device.dispInch))
+                SplitTextListItem(title: "解像度", element: Localize.numbers(device.dispResolution))
+                SplitTextListItem(title: "画素密度", element: device.dispPpi)
             } header: {
                 Text("ディスプレイ")
             }
             Section {
                 if device.rearCam["wide"] != nil {
-                    DefaultListItem(item: "広角", element: device.rearCam["wide"]!)
+                    SplitTextListItem(title: "広角", element: device.rearCam["wide"]!)
                 }
                 if device.rearCam["ultraWide"] != nil {
-                    DefaultListItem(item: "超広角", element: device.rearCam["ultraWide"]!)
+                    SplitTextListItem(title: "超広角", element: device.rearCam["ultraWide"]!)
                 }
                 if device.rearCam["tele"] != nil {
-                    DefaultListItem(item: "望遠", element: device.rearCam["tele"]!)
+                    SplitTextListItem(title: "望遠", element: device.rearCam["tele"]!)
                 }
             } header: {
                 Text("背面カメラ")
             }
             Section {
                 if device.frontCam["wide"] != nil {
-                    DefaultListItem(item: "広角", element: device.frontCam["wide"]!)
+                    SplitTextListItem(title: "広角", element: device.frontCam["wide"]!)
                 }
                 if device.frontCam["ultraWide"] != nil {
-                    DefaultListItem(item: "超広角", element: device.frontCam["ultraWide"]!)
+                    SplitTextListItem(title: "超広角", element: device.frontCam["ultraWide"]!)
                 }
             } header: {
                 Text("前面カメラ")
             }
             Section {
-                DefaultListItem(item: "重量", element: device.weight)
-                DefaultListItem(item: "バッテリー容量", element: Localize.numbers(device.batteryCapacity))
-                DefaultListItem(item: "発売日", element: Localize.date(device.releaseDate))
+                SplitTextListItem(title: "重量", element: device.weight)
+                SplitTextListItem(title: "バッテリー容量", element: Localize.numbers(device.batteryCapacity))
+                SplitTextListItem(title: "発売日", element: Localize.date(device.releaseDate))
             } header: {
                 Text("その他")
             }
@@ -188,12 +188,12 @@ struct DeviceDetailView: View {
         
         var body: some View {
             Section {
-                DefaultListItem(item: "SoC", element: chip.chipName)
-                DefaultListItem(item: "プロセスルール", element: chip.manufacturingProcess)
-                DefaultListItem(item: "CPUコア数", element: chip.cpuCoreNum)
-                DefaultListItem(item: "GPUコア数", element: chip.gpuCoreNum)
+                SplitTextListItem(title: "SoC", element: chip.chipName)
+                SplitTextListItem(title: "プロセスルール", element: chip.manufacturingProcess)
+                SplitTextListItem(title: "CPUコア数", element: chip.cpuCoreNum)
+                SplitTextListItem(title: "GPUコア数", element: chip.gpuCoreNum)
                 if chip.neuralEngineCoreNum != nil {
-                    DefaultListItem(item: "Neural Engineコア数", element: chip.neuralEngineCoreNum!)
+                    SplitTextListItem(title: "Neural Engineコア数", element: chip.neuralEngineCoreNum!)
                 }
             } header: {
                 Text("チップ")

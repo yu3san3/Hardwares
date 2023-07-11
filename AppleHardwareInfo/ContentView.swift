@@ -81,7 +81,7 @@ struct ContentView: View {
                         } else {
                             HStack {
                                 Image(systemName: "ipad.and.iphone")
-                                DefaultListItem(item: "端末名", element: UIDevice.current.name)
+                                SplitTextListItem(title: "端末名", element: UIDevice.current.name)
                             }
                         }
                     }
@@ -89,8 +89,8 @@ struct ContentView: View {
                     NavigationLink(destination: SystemInfoView()) {
                         HStack {
                             Image(systemName: "cpu")
-                            DefaultListItem(
-                                item: "システム情報",
+                            SplitTextListItem(
+                                title: "システム情報",
                                 element: UIDevice.current.systemName + " " + UIDevice.current.systemVersion
                             )
                         }
@@ -142,8 +142,8 @@ struct ContentView: View {
                     Text("リンク")
                 }
                 Section {
-                    DefaultListItem(item: "バージョン", element: appVersion)
-                    DefaultListItem(item: "ビルド", element: appBuildNum)
+                    SplitTextListItem(title: "バージョン", element: appVersion)
+                    SplitTextListItem(title: "ビルド", element: appBuildNum)
                 } header: {
                     Text("このアプリについて")
                 }
@@ -151,23 +151,6 @@ struct ContentView: View {
             .navigationTitle("トップ")
             //iPadでの表示を調整
             .listStyle(.insetGrouped)
-        }
-    }
-}
-
-//itemとelementをList内の左右に配置するView
-struct DefaultListItem: View {
-    
-    let item: LocalizedStringKey
-    let element: String
-    
-    var body: some View {
-        HStack {
-            Text(item)
-                .defaultStyle()
-            Spacer()
-            Text(element)
-                .defaultStyle()
         }
     }
 }

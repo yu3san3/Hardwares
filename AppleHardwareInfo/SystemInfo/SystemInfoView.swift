@@ -22,8 +22,8 @@ struct SystemInfoView: View {
         List {
             Section {
                 Group {
-                    DefaultListItem(
-                        item: "システム",
+                    SplitTextListItem(
+                        title: "システム",
                         element: UIDevice.current.systemName + " " + UIDevice.current.systemVersion
                     )
                 }
@@ -31,13 +31,13 @@ struct SystemInfoView: View {
                     let str: String = ProcessInfo.processInfo.operatingSystemVersionString
                     let array: [String] = str.components(separatedBy: " ")
                     let systemBuildNum: String = String(array.last!.dropLast(1))
-                    DefaultListItem(item: "システムビルド", element: systemBuildNum)
+                    SplitTextListItem(title: "システムビルド", element: systemBuildNum)
                 }
             } header: {
                 Text("現在のシステム")
             }
             Section {
-                DefaultListItem(item: "システム起動", element: systemBoot.getBootTime())
+                SplitTextListItem(title: "システム起動", element: systemBoot.getBootTime())
                 Group {
                     HStack {
                         Text("稼働時間")
@@ -129,8 +129,8 @@ struct SystemInfoView: View {
             Section {
                 BatteryListItem(types: .revisedCapacity, item: "容量", placeholder: "0 mAh")
                 BatteryListItem(types: .maximumCapacity, item: "最大容量", placeholder: "100 %")
-                DefaultListItem(
-                    item: "実際の容量",
+                SplitTextListItem(
+                    title: "実際の容量",
                     element: Localize.numbers(battery.actualCapacity)
                 )
             } header: {
