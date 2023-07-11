@@ -11,6 +11,7 @@ import BetterSafariView
 struct DeviceDetailView: View {
     
     var device: DeviceData
+    var chip: ChipData?
     
     @State private var shouldShowWebView: Bool = false
     @State private var shouldShowGlossaryView: Bool = false
@@ -19,12 +20,33 @@ struct DeviceDetailView: View {
     let chipNameArray = Data.chipList.map({ (list) -> String in
         return list.chipName
     })
+
+    init(device: DeviceData) {
+        self.device = device
+        //chipListにおける現在のデバイスに搭載されているチップのindexを探してindexに代入
+        if let index = chipNameArray.firstIndex(of: device.chip) {
+            self.chip = Data.chipList[index]
+        } else {
+            self.chip = nil
+        }
+    }
     
     var body: some View {
         List {
-            //chipListにおける現在のデバイスに搭載されているチップのindexを探してindexに代入
-            if let index = chipNameArray.firstIndex(of: device.chip) {
-                ChipDetailView(chip: Data.chipList[index])
+            if let chip = self.chip {
+                Section {
+                    SplitTextListItem(title: "SoC", element: chip.chipName)
+                    SplitTextListItem(title: "プロセスルール", element: chip.manufacturingProcess)
+                    SplitTextListItem(title: "CPUコア数", element: chip.cpuCoreNum)
+                    SplitTextListItem(title: "GPUコア数", element: chip.gpuCoreNum)
+                    if chip.neuralEngineCoreNum != nil {
+                        SplitTextListItem(title: "Neural Engineコア数", element: chip.neuralEngineCoreNum!)
+                    }
+                } header: {
+                    Text("チップ")
+                } footer: {
+                    Text("P: Performance  E: Efficiency")
+                }
             } else {
                 Text("Error: Chip data is not registered.")
             }
@@ -117,26 +139,6 @@ struct DeviceDetailView: View {
         }
         .navigationTitle(device.deviceName)
         .navigationBarTitleDisplayMode(.inline)
-    }
-    
-    struct ChipDetailView: View {
-        var chip: ChipData
-        
-        var body: some View {
-            Section {
-                SplitTextListItem(title: "SoC", element: chip.chipName)
-                SplitTextListItem(title: "プロセスルール", element: chip.manufacturingProcess)
-                SplitTextListItem(title: "CPUコア数", element: chip.cpuCoreNum)
-                SplitTextListItem(title: "GPUコア数", element: chip.gpuCoreNum)
-                if chip.neuralEngineCoreNum != nil {
-                    SplitTextListItem(title: "Neural Engineコア数", element: chip.neuralEngineCoreNum!)
-                }
-            } header: {
-                Text("チップ")
-            } footer: {
-                Text("P: Performance  E: Efficiency")
-            }
-        }
     }
 }
 
