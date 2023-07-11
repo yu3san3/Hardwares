@@ -20,6 +20,8 @@ struct DeviceDetailView: View {
         return list.chipName
     })
 
+    let technicalSpecificationsUrl: URL?
+
     init(device: DeviceData) {
         self.device = device
         //chipListにおける現在のデバイスに搭載されているチップのindexを探してindexに代入
@@ -28,6 +30,10 @@ struct DeviceDetailView: View {
         } else {
             self.chip = nil
         }
+        //技術仕様のURLを完成させる
+        self.technicalSpecificationsUrl = URL(
+            string: "https://support.apple.com/" + device.technicalSpecificationsUrl
+        )
     }
     
     var body: some View {
@@ -92,9 +98,7 @@ struct DeviceDetailView: View {
                 Text("その他")
             }
             Section {
-                if let technicalSpecificationsUrl = URL(
-                    string: "https://support.apple.com/" + device.technicalSpecificationsUrl
-                ) {
+                if let url = technicalSpecificationsUrl {
                     HStack {
                         Text("技術仕様 (support.apple.com)")
                             .foregroundColor(.blue)
@@ -105,7 +109,7 @@ struct DeviceDetailView: View {
                         shouldShowWebView.toggle()
                     }
                     .fullScreenCover(isPresented: $shouldShowWebView) {
-                        SafariView(url: technicalSpecificationsUrl)
+                        SafariView(url: url)
                             .edgesIgnoringSafeArea(.all)
                     }
                 } else {
