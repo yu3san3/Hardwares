@@ -105,7 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				EBE586652837533B004B4C3E /* ContentView.swift */,
-				EB1C43882A5DAB4A007AC1C3 /* SplitTextListItem.swift */,
 				EB1C438A2A5DBD44007AC1C3 /* AllDeviceListView.swift */,
 				EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */,
 				EB1C438C2A5DBF4C007AC1C3 /* GlossaryView.swift */,
@@ -167,6 +166,7 @@
 			children = (
 				EBB78961290FBDAD009D4EC9 /* AppleHardwareInfo.entitlements */,
 				EBE586632837533B004B4C3E /* AppleHardwareInfoApp.swift */,
+				EB1C43882A5DAB4A007AC1C3 /* SplitTextListItem.swift */,
 				EB1C438E2A5DC09F007AC1C3 /* View */,
 				EBCC410C29A51F86000EDD93 /* Model */,
 				EBCC411629A523F6000EDD93 /* Data */,

@@ -120,7 +120,6 @@ struct DeviceDetailView: View {
     }
     
     struct ChipDetailView: View {
-        
         var chip: ChipData
         
         var body: some View {
