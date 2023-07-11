@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import BetterSafariView
 
 struct DeviceDetailView: View {
     
@@ -104,17 +103,10 @@ struct DeviceDetailView: View {
                     .contentShape(Rectangle()) //セル全体をタップ領域にする
                     .onTapGesture {
                         shouldShowWebView.toggle()
-                    }.safariView(isPresented: $shouldShowWebView) {
-                        SafariView(
-                            url: technicalSpecificationsUrl,
-                            configuration: SafariView.Configuration(
-                                entersReaderIfAvailable: false,
-                                barCollapsingEnabled: true
-                            )
-                        )
-                        .preferredBarAccentColor(.clear)
-                        .preferredControlAccentColor(.accentColor)
-                        .dismissButtonStyle(.done)
+                    }
+                    .fullScreenCover(isPresented: $shouldShowWebView) {
+                        SafariView(url: technicalSpecificationsUrl)
+                            .edgesIgnoringSafeArea(.all)
                     }
                 } else {
                     Text("Error: Invalid link to technical specification.")
@@ -145,6 +137,5 @@ struct DeviceDetailView: View {
 struct DeviceDetailView_Previews: PreviewProvider {
     static var previews: some View {
         DeviceDetailView(device: Data.iPhoneList[0])
-        GlossaryView()
     }
 }

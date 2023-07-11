@@ -13,7 +13,7 @@
 		EB1C43902A5DC275007AC1C3 /* SystemBoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C438F2A5DC275007AC1C3 /* SystemBoot.swift */; };
 		EB1C43922A5DC2B8007AC1C3 /* ThermalMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C43912A5DC2B8007AC1C3 /* ThermalMonitor.swift */; };
 		EB1C43942A5DC2E5007AC1C3 /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C43932A5DC2E5007AC1C3 /* Battery.swift */; };
-		EB271B1A2916950500724231 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = EB271B192916950500724231 /* BetterSafariView */; };
+		EB1C43982A5DDB11007AC1C3 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C43972A5DDB11007AC1C3 /* SafariView.swift */; };
 		EB646BF02924E0B500C8E24D /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BEF2924E0B500C8E24D /* DeviceData.swift */; };
 		EB646BF22924E5AF00C8E24D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */; };
 		EBCBE70C2930A66800C3B7A3 /* SystemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */; };
@@ -54,6 +54,7 @@
 		EB1C438F2A5DC275007AC1C3 /* SystemBoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemBoot.swift; sourceTree = "<group>"; };
 		EB1C43912A5DC2B8007AC1C3 /* ThermalMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermalMonitor.swift; sourceTree = "<group>"; };
 		EB1C43932A5DC2E5007AC1C3 /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
+		EB1C43972A5DDB11007AC1C3 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		EB646BEF2924E0B500C8E24D /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		EBB78961290FBDAD009D4EC9 /* AppleHardwareInfo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppleHardwareInfo.entitlements; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB271B1A2916950500724231 /* BetterSafariView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +109,7 @@
 				EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */,
 				EB1C438C2A5DBF4C007AC1C3 /* GlossaryView.swift */,
 				EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */,
+				EB1C43972A5DDB11007AC1C3 /* SafariView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -220,7 +221,6 @@
 			);
 			name = AppleHardwareInfo;
 			packageProductDependencies = (
-				EB271B192916950500724231 /* BetterSafariView */,
 			);
 			productName = AppleHardwareInfo;
 			productReference = EBE586602837533B004B4C3E /* AppleHardwareInfo.app */;
@@ -296,7 +296,6 @@
 			);
 			mainGroup = EBE586572837533B004B4C3E;
 			packageReferences = (
-				EB271B182916950500724231 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 			);
 			productRefGroup = EBE586612837533B004B4C3E /* Products */;
 			projectDirPath = "";
@@ -345,6 +344,7 @@
 				EB1C438D2A5DBF4C007AC1C3 /* GlossaryView.swift in Sources */,
 				EB1C43892A5DAB4A007AC1C3 /* SplitTextListItem.swift in Sources */,
 				EBCC411829A526EC000EDD93 /* Localize.swift in Sources */,
+				EB1C43982A5DDB11007AC1C3 /* SafariView.swift in Sources */,
 				EBCBE70C2930A66800C3B7A3 /* SystemInfoView.swift in Sources */,
 				EBE586662837533B004B4C3E /* ContentView.swift in Sources */,
 				EBCC411529A522F3000EDD93 /* Extensions.swift in Sources */,
@@ -707,25 +707,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		EB271B182916950500724231 /* XCRemoteSwiftPackageReference "BetterSafariView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stleamist/BetterSafariView.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		EB271B192916950500724231 /* BetterSafariView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EB271B182916950500724231 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
-			productName = BetterSafariView;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EBE586582837533B004B4C3E /* Project object */;
 }

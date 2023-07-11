@@ -21,7 +21,6 @@
 //
 
 import SwiftUI
-import BetterSafariView
 
 //バージョン情報
 let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
@@ -162,17 +161,9 @@ private extension ContentView {
             .onTapGesture {
                 shouldShowWebView = true
             }
-            .safariView(isPresented: $shouldShowWebView) {
-                SafariView(
-                    url: speedTestUrl,
-                    configuration: SafariView.Configuration(
-                        entersReaderIfAvailable: false,
-                        barCollapsingEnabled: true
-                    )
-                )
-                .preferredBarAccentColor(.clear)
-                .preferredControlAccentColor(.accentColor)
-                .dismissButtonStyle(.done)
+            .fullScreenCover(isPresented: $shouldShowWebView) {
+                SafariView(url: speedTestUrl)
+                    .edgesIgnoringSafeArea(.all)
             }
         } else {
             Text("Error: The link to speed test is invalidate")
