@@ -151,6 +151,6 @@ private extension DeviceDetailView {
 
 struct DeviceDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceDetailView(device: Data.iPhoneList[0])
+        DeviceDetailView(device: Data.iPhoneArray[0])
     }
 }

@@ -93,21 +93,21 @@ private extension ContentView {
             switch UIDevice.current.systemName {
             case OperatingSystem.iOS.rawValue:
                 NavigationLink(
-                    destination: DeviceDetailView(device: Data.iPhoneList[index])
+                    destination: DeviceDetailView(device: DeviceData.iPhoneArray[index])
                 ) {
                     HStack {
                         Image(systemName: "ipad.and.iphone")
-                        Text(Data.iPhoneList[index].deviceName)
+                        Text(DeviceData.iPhoneArray[index].deviceName)
                             .defaultStyle()
                     }
                 }
             case OperatingSystem.iPadOS.rawValue:
                 NavigationLink(
-                    destination: DeviceDetailView(device: Data.iPadList[index])
+                    destination: DeviceDetailView(device: DeviceData.iPadArray[index])
                 ) {
                     HStack {
                         Image(systemName: "ipad.and.iphone")
-                        Text(Data.iPadList[index].deviceName)
+                        Text(DeviceData.iPadArray[index].deviceName)
                             .defaultStyle()
                     }
                 }

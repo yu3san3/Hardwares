@@ -14,10 +14,10 @@ struct AllDeviceListView: View {
     @State private var searchText: String = ""
 
     //デバイス名のみの配列を作る
-    let iPhoneNameArray = Data.iPhoneList.map({ (list) -> String in
+    let iPhoneNameArray = DeviceData.iPhoneArray.map({ (list) -> String in
         return list.deviceName
     })
-    let iPadNameArray = Data.iPadList.map({ (list) -> String in
+    let iPadNameArray = DeviceData.iPadArray.map({ (list) -> String in
         return list.deviceName
     })
 
@@ -46,7 +46,7 @@ struct AllDeviceListView: View {
                 case .iPhone:
                     if let index = iPhoneNameArray.firstIndex(of: item) {
                         NavigationLink(
-                            destination: DeviceDetailView(device: Data.iPhoneList[index])
+                            destination: DeviceDetailView(device: DeviceData.iPhoneArray[index])
                         ) {
                             Text(item)
                                 .defaultStyle()
@@ -55,7 +55,7 @@ struct AllDeviceListView: View {
                 case .iPad:
                     if let index = iPadNameArray.firstIndex(of: item) {
                         NavigationLink(
-                            destination: DeviceDetailView(device: Data.iPadList[index])
+                            destination: DeviceDetailView(device: DeviceData.iPadArray[index])
                         ) {
                             Text(item)
                                 .defaultStyle()

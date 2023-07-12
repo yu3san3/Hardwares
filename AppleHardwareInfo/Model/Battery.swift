@@ -42,9 +42,9 @@ class Battery: ObservableObject {
         if let index = Data.currentDeviceIndex {
             switch UIDevice.current.systemName {
             case OperatingSystem.iOS.rawValue:
-                return Data.iPhoneList[index].batteryCapacity
+                return DeviceData.iPhoneArray[index].batteryCapacity
             case OperatingSystem.iPadOS.rawValue:
-                return Data.iPadList[index].batteryCapacity
+                return DeviceData.iPadArray[index].batteryCapacity
             default:
                 break
             }
