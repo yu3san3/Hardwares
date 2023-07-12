@@ -15,6 +15,8 @@
 		EB1C43942A5DC2E5007AC1C3 /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C43932A5DC2E5007AC1C3 /* Battery.swift */; };
 		EB1C43982A5DDB11007AC1C3 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C43972A5DDB11007AC1C3 /* SafariView.swift */; };
 		EB1C439E2A5DDF1D007AC1C3 /* GlossaryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C439D2A5DDF1D007AC1C3 /* GlossaryItem.swift */; };
+		EB40CCAF2A5EF1BC0027A3E2 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40CCAE2A5EF1BC0027A3E2 /* Device.swift */; };
+		EB40CCB12A5EF2370027A3E2 /* OperatingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40CCB02A5EF2370027A3E2 /* OperatingSystem.swift */; };
 		EB646BF02924E0B500C8E24D /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BEF2924E0B500C8E24D /* DeviceData.swift */; };
 		EB646BF22924E5AF00C8E24D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */; };
 		EBCBE70C2930A66800C3B7A3 /* SystemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */; };
@@ -57,6 +59,8 @@
 		EB1C43932A5DC2E5007AC1C3 /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
 		EB1C43972A5DDB11007AC1C3 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		EB1C439D2A5DDF1D007AC1C3 /* GlossaryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossaryItem.swift; sourceTree = "<group>"; };
+		EB40CCAE2A5EF1BC0027A3E2 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		EB40CCB02A5EF2370027A3E2 /* OperatingSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatingSystem.swift; sourceTree = "<group>"; };
 		EB646BEF2924E0B500C8E24D /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		EBB78961290FBDAD009D4EC9 /* AppleHardwareInfo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppleHardwareInfo.entitlements; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 		EBCC410F29A521F1000EDD93 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				EB40CCAE2A5EF1BC0027A3E2 /* Device.swift */,
+				EB40CCB02A5EF2370027A3E2 /* OperatingSystem.swift */,
 				EBCC411729A526EC000EDD93 /* Localize.swift */,
 				EBCC411429A522F3000EDD93 /* Extensions.swift */,
 			);
@@ -345,7 +351,9 @@
 			files = (
 				EB1C439E2A5DDF1D007AC1C3 /* GlossaryItem.swift in Sources */,
 				EB1C43942A5DC2E5007AC1C3 /* Battery.swift in Sources */,
+				EB40CCB12A5EF2370027A3E2 /* OperatingSystem.swift in Sources */,
 				EB1C438D2A5DBF4C007AC1C3 /* GlossaryView.swift in Sources */,
+				EB40CCAF2A5EF1BC0027A3E2 /* Device.swift in Sources */,
 				EB1C43892A5DAB4A007AC1C3 /* SplitTextListItem.swift in Sources */,
 				EBCC411829A526EC000EDD93 /* Localize.swift in Sources */,
 				EB1C43982A5DDB11007AC1C3 /* SafariView.swift in Sources */,

@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-enum Devices: String {
-    case iPhone = "iPhone"
-    case iPad = "iPad"
-}
-
-//デバイスの種類を表すenum
-enum OS: String {
-    case iOS = "iOS"
-    case iPadOS = "iPadOS"
-}
-
 extension Data {
     //deviceList内におけるcurrentDeviceのindex
     static var currentDeviceIndex: Int? {
@@ -30,9 +19,9 @@ extension Data {
         })
         
         switch UIDevice.current.systemName {
-        case OS.iOS.rawValue:
+        case OperatingSystem.iOS.rawValue:
             return iPhoneNameArray.firstIndex(of: YMTGetDeviceName.getDeviceName())
-        case OS.iPadOS.rawValue:
+        case OperatingSystem.iPadOS.rawValue:
             return iPadNameArray.firstIndex(of: YMTGetDeviceName.getDeviceName())
         default:
             return nil

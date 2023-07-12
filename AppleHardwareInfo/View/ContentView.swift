@@ -91,7 +91,7 @@ private extension ContentView {
     func makeLinkViewToDeviceDetailViewOfCurrentDevice() -> some View {
         if let index = Data.currentDeviceIndex {
             switch UIDevice.current.systemName {
-            case OS.iOS.rawValue:
+            case OperatingSystem.iOS.rawValue:
                 NavigationLink(
                     destination: DeviceDetailView(device: Data.iPhoneList[index])
                 ) {
@@ -101,7 +101,7 @@ private extension ContentView {
                             .defaultStyle()
                     }
                 }
-            case OS.iPadOS.rawValue:
+            case OperatingSystem.iPadOS.rawValue:
                 NavigationLink(
                     destination: DeviceDetailView(device: Data.iPadList[index])
                 ) {

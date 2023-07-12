@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AllDeviceListView: View {
 
-    var device: Devices
+    var device: Device
 
     @State private var searchText: String = ""
 
