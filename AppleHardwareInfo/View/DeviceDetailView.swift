@@ -11,16 +11,16 @@ struct DeviceDetailView: View {
     
     var device: DeviceData
     var chip: ChipData?
-    
-    @State private var shouldShowWebView: Bool = false
-    @State private var shouldShowGlossaryView: Bool = false
-    
+
+    let technicalSpecificationsUrl: URL?
+
     //チップ名のみの配列を作る
     let chipNameArray = Data.chipList.map({ (list) -> String in
         return list.chipName
     })
-
-    let technicalSpecificationsUrl: URL?
+    
+    @State private var shouldShowWebView: Bool = false
+    @State private var shouldShowGlossaryView: Bool = false
 
     init(device: DeviceData) {
         self.device = device
@@ -98,23 +98,7 @@ struct DeviceDetailView: View {
                 Text("その他")
             }
             Section {
-                if let url = technicalSpecificationsUrl {
-                    HStack {
-                        Text("技術仕様 (support.apple.com)")
-                            .foregroundColor(.blue)
-                        Spacer() //セル全体をタップ領域にする
-                    }
-                    .contentShape(Rectangle()) //セル全体をタップ領域にする
-                    .onTapGesture {
-                        shouldShowWebView.toggle()
-                    }
-                    .fullScreenCover(isPresented: $shouldShowWebView) {
-                        SafariView(url: url)
-                            .edgesIgnoringSafeArea(.all)
-                    }
-                } else {
-                    Text("Error: Invalid link to technical specification.")
-                }
+                makeLinkToTechnicalSpecification()
             } header: {
                 Text("リンク")
             } footer: {
@@ -123,18 +107,45 @@ struct DeviceDetailView: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    shouldShowGlossaryView = true
-                }) {
-                    Image(systemName: "info.circle")
-                }
-                .sheet(isPresented: $shouldShowGlossaryView, content: {
-                    GlossaryView() //用語集
-                })
+                glossaryButton
+                    .sheet(isPresented: $shouldShowGlossaryView) {
+                        GlossaryView() //用語集
+                    }
             }
         }
         .navigationTitle(device.deviceName)
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+private extension DeviceDetailView {
+    @ViewBuilder
+    func makeLinkToTechnicalSpecification() -> some View {
+        if let url = technicalSpecificationsUrl {
+            HStack {
+                Text("技術仕様 (support.apple.com)")
+                    .foregroundColor(.blue)
+                Spacer() //セル全体をタップ領域にする
+            }
+            .contentShape(Rectangle()) //セル全体をタップ領域にする
+            .onTapGesture {
+                shouldShowWebView.toggle()
+            }
+            .fullScreenCover(isPresented: $shouldShowWebView) {
+                SafariView(url: url)
+                    .edgesIgnoringSafeArea(.all)
+            }
+        } else {
+            Text("Error: Invalid link to technical specification.")
+        }
+    }
+
+    var glossaryButton: some View {
+        Button(action: {
+            shouldShowGlossaryView = true
+        }) {
+            Image(systemName: "info.circle")
+        }
     }
 }
 
