@@ -39,16 +39,9 @@ class Battery: ObservableObject {
 
     //DeviceListに登録されている、currentDeviceのバッテリー容量
     private var registeredCapacity: String {
-        if let index = DeviceData.currentDeviceIndex {
-            switch UIDevice.current.systemName {
-            case OperatingSystem.iOS.rawValue:
-                return DeviceData.iPhoneArray[index].batteryCapacity
-            case OperatingSystem.iPadOS.rawValue:
-                return DeviceData.iPadArray[index].batteryCapacity
-            default:
-                break
-            }
+        guard let currentDeviceData = DeviceData.getCurrentDeviceData() else {
+            return "unknown mAh"
         }
-        return "unknown mAh"
+        return currentDeviceData.batteryCapacity
     }
 }

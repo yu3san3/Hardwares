@@ -89,32 +89,18 @@ private extension ContentView {
 
     @ViewBuilder
     func makeLinkViewToDeviceDetailViewOfCurrentDevice() -> some View {
-        if let index = DeviceData.currentDeviceIndex {
-            switch UIDevice.current.systemName {
-            case OperatingSystem.iOS.rawValue:
-                NavigationLink(
-                    destination: DeviceDetailView(device: DeviceData.iPhoneArray[index])
-                ) {
-                    HStack {
-                        Image(systemName: "ipad.and.iphone")
-                        Text(DeviceData.iPhoneArray[index].deviceName)
-                            .defaultStyle()
-                    }
+        if let deviceData = DeviceData.getCurrentDeviceData() {
+            NavigationLink(
+                destination: DeviceDetailView(device: deviceData)
+            ) {
+                HStack {
+                    Image(systemName: "ipad.and.iphone")
+                    Text(deviceData.deviceName)
+                        .defaultStyle()
                 }
-            case OperatingSystem.iPadOS.rawValue:
-                NavigationLink(
-                    destination: DeviceDetailView(device: DeviceData.iPadArray[index])
-                ) {
-                    HStack {
-                        Image(systemName: "ipad.and.iphone")
-                        Text(DeviceData.iPadArray[index].deviceName)
-                            .defaultStyle()
-                    }
-                }
-            default:
-                Text("Error: This app does not support the running OS.")
             }
         } else {
+            let _ = debugPrint("Error: Failed to get current device data.")
             HStack {
                 Image(systemName: "ipad.and.iphone")
                 SplitTextListItem(title: "端末名", element: UIDevice.current.name)
