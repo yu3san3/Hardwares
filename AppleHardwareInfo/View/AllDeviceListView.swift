@@ -9,57 +9,44 @@ import SwiftUI
 
 struct AllDeviceListView: View {
 
-    var device: Device
+    let device: Device
+
+    let deviceNameArray: [String]
+    let deviceArray: [DeviceData]
 
     @State private var searchText: String = ""
 
-    //デバイス名のみの配列を作る
-    let iPhoneNameArray = DeviceData.iPhoneArray.map({ (list) -> String in
-        return list.deviceName
-    })
-    let iPadNameArray = DeviceData.iPadArray.map({ (list) -> String in
-        return list.deviceName
-    })
-
     //検索結果を格納する配列
     private var searchResults: [String] {
+        if searchText.isEmpty {
+            return deviceNameArray
+        } else {
+            return deviceNameArray.filter { $0.contains(searchText) }
+        }
+    }
+
+    init(device: Device) {
+        self.device = device
+
         switch device {
         case .iPhone:
-            if searchText.isEmpty {
-                return iPhoneNameArray
-            } else {
-                return iPhoneNameArray.filter { $0.contains(searchText) }
-            }
+            self.deviceNameArray = DeviceData.iPhoneNameArray
+            self.deviceArray = DeviceData.iPhoneArray
         case .iPad:
-            if searchText.isEmpty {
-                return iPadNameArray
-            } else {
-                return iPadNameArray.filter { $0.contains(searchText) }
-            }
+            self.deviceNameArray = DeviceData.iPadNameArray
+            self.deviceArray = DeviceData.iPadArray
         }
     }
 
     var body: some View {
         List {
             ForEach(searchResults, id: \.self) { item in
-                switch device {
-                case .iPhone:
-                    if let index = iPhoneNameArray.firstIndex(of: item) {
-                        NavigationLink(
-                            destination: DeviceDetailView(device: DeviceData.iPhoneArray[index])
-                        ) {
-                            Text(item)
-                                .defaultStyle()
-                        }
-                    }
-                case .iPad:
-                    if let index = iPadNameArray.firstIndex(of: item) {
-                        NavigationLink(
-                            destination: DeviceDetailView(device: DeviceData.iPadArray[index])
-                        ) {
-                            Text(item)
-                                .defaultStyle()
-                        }
+                if let index = deviceNameArray.firstIndex(of: item) {
+                    NavigationLink(
+                        destination: DeviceDetailView(device: deviceArray[index])
+                    ) {
+                        Text(item)
+                            .defaultStyle()
                     }
                 }
             }
