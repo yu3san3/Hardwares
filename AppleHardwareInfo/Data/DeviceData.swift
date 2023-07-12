@@ -30,16 +30,6 @@ extension Data {
 }
 
 public class Data {
-    
-    static let chipList = [
-        //    ChipData(chipName: "", manufacturingProcess: " nm", cpuCoreNum: " (P+E)", gpuCoreNum: "", neuralEngineCoreNum: ""),
-        ChipData(chipName: "A15 Bionic (5-GPU)", manufacturingProcess: "5 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "5", neuralEngineCoreNum: "16"),
-        ChipData(chipName: "A14 Bionic", manufacturingProcess: "5 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "4", neuralEngineCoreNum: "16"),
-        ChipData(chipName: "A11 Bionic", manufacturingProcess: "10 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "3", neuralEngineCoreNum: "2"),
-        ChipData(chipName: "A10 Fusion", manufacturingProcess: "16 nm", cpuCoreNum: "4 (2P+2E)", gpuCoreNum: "-"),
-        ChipData(chipName: "A7", manufacturingProcess: "28 nm", cpuCoreNum: "2", gpuCoreNum: "-"),
-    ]
-    
     static let iPhoneList = [
         //    DeviceData(deviceName: "", chip: "", memoryCapacity: " GB",  dispInch: " inch ()", dispResolution: " x  pixel", dispPpi: " ppi",rearCam: ["wide":" MP f/","ultraWide":" MP f/","tele":" MP f/"], frontCam: ["wide":" MP f/"], weight: " g", batteryCapacity: " mAh", releaseDate: "", technicalSpecificationsUrl: ""),
         DeviceData(deviceName: "iPhone 12 Pro Max", chip: "A14 Bionic", memoryCapacity: "6 GB",  dispInch: "6.7 inch (OLED)", dispResolution: "2778 x 1284 pixel", dispPpi: "458 ppi",rearCam: ["wide":"12 MP, f/1.6","ultraWide":"12 MP, f/2.4","tele":"12 MP, f/2.2"], frontCam: ["wide":"12 MP, f/2.2"], weight: "226 g", batteryCapacity: "3687 mAh", releaseDate: "2020/11/13", technicalSpecificationsUrl: "kb/SP832"),
@@ -55,15 +45,6 @@ public class Data {
         DeviceData(deviceName: "iPad mini (6th generation)", chip: "A15 Bionic (5-GPU)", memoryCapacity: "4 GB",  dispInch: "8.3 inch (IPS)", dispResolution: "2,266 x 1,488 pixel", dispPpi: "326 ppi", rearCam: ["wide":"12 MP, f/1.8"], frontCam: ["ultraWide":"12 MP, f/2.2"], weight: "293 g (Cellular: 297 g)", batteryCapacity: "5124 mAh", releaseDate: "2021/09/24", technicalSpecificationsUrl: "kb/SP850"),
     ]
     
-}
-
-struct ChipData: Identifiable {
-    var id = UUID()
-    var chipName: String //チップ名
-    var manufacturingProcess: String //プロセスルール
-    var cpuCoreNum: String //CPUコア数
-    var gpuCoreNum: String //GPUコア数
-    var neuralEngineCoreNum: String? //ニューラルエンジンコア数
 }
 
 struct DeviceData: Identifiable {

@@ -15,7 +15,7 @@ struct DeviceDetailView: View {
     let technicalSpecificationsUrl: URL?
 
     //チップ名のみの配列を作る
-    let chipNameArray = Data.chipList.map({ (list) -> String in
+    let chipNameArray = ChipData.chipArray.map({ (list) -> String in
         return list.chipName
     })
     
@@ -26,7 +26,7 @@ struct DeviceDetailView: View {
         self.device = device
         //chipListにおける現在のデバイスに搭載されているチップのindexを探してindexに代入
         if let index = chipNameArray.firstIndex(of: device.chip) {
-            self.chip = Data.chipList[index]
+            self.chip = ChipData.chipArray[index]
         } else {
             self.chip = nil
         }
