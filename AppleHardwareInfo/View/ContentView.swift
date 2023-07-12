@@ -89,7 +89,7 @@ private extension ContentView {
 
     @ViewBuilder
     func makeLinkViewToDeviceDetailViewOfCurrentDevice() -> some View {
-        if let index = Data.currentDeviceIndex {
+        if let index = DeviceData.currentDeviceIndex {
             switch UIDevice.current.systemName {
             case OperatingSystem.iOS.rawValue:
                 NavigationLink(

@@ -7,17 +7,19 @@
 
 import SwiftUI
 
-extension Data {
-    //deviceList内におけるcurrentDeviceのindex
+extension DeviceData {
+    //デバイス名のみの配列を作る
+    static let iPhoneNameArray = DeviceData.iPhoneArray.map({ (list) -> String in
+        return list.deviceName
+    })
+    static let iPadNameArray = DeviceData.iPadArray.map({ (list) -> String in
+        return list.deviceName
+    })
+}
+
+extension DeviceData {
+    //deviceDataのArrayにおけるcurrentDeviceのindex
     static var currentDeviceIndex: Int? {
-        //デバイス名のみの配列を作る
-        let iPhoneNameArray = DeviceData.iPhoneArray.map({ (list) -> String in
-            return list.deviceName
-        })
-        let iPadNameArray = DeviceData.iPadArray.map({ (list) -> String in
-            return list.deviceName
-        })
-        
         switch UIDevice.current.systemName {
         case OperatingSystem.iOS.rawValue:
             return iPhoneNameArray.firstIndex(of: YMTGetDeviceName.getDeviceName())
@@ -27,11 +29,6 @@ extension Data {
             return nil
         }
     }
-}
-
-public class Data {
-
-    
 }
 
 struct DeviceData: Identifiable {
