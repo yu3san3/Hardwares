@@ -9,14 +9,11 @@ import SwiftUI
 
 struct BatteryCorrectionListItem: View {
 
-    let type: CorrectionType
-
-    enum CorrectionType {
-        case revisedCapacity
-        case maximumCapacity
-    }
+    let type: BatteryCorrectionType
 
     private let title: LocalizedStringKey
+    private let placeholder: LocalizedStringKey
+
     private var element: String {
         switch type {
         case .revisedCapacity:
@@ -26,9 +23,12 @@ struct BatteryCorrectionListItem: View {
         }
     }
 
-    private let placeholder: LocalizedStringKey
+    @ObservedObject var battery = Battery()
 
-    init(type: CorrectionType) {
+    @State private var isShowingAlert: Bool = false
+    @State private var textFieldContent: String = ""
+
+    init(type: BatteryCorrectionType) {
         self.type = type
 
         switch type {
@@ -40,11 +40,6 @@ struct BatteryCorrectionListItem: View {
             self.placeholder = "100 %"
         }
     }
-
-    @State private var isShowingAlert: Bool = false
-    @State private var textFieldContent: String = ""
-
-    @ObservedObject var battery = Battery()
 
     var body: some View {
         HStack {
