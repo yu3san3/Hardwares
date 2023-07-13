@@ -92,7 +92,11 @@ struct DeviceDetailView: View {
             }
             Section {
                 SplitTextListItem(title: "重量", element: device.weight)
-                SplitTextListItem(title: "バッテリー容量", element: Localize.numbers(device.batteryCapacity))
+                let batteryCapacity = "\(device.battery.capacity) \(device.battery.unit.rawValue)"
+                SplitTextListItem(
+                    title: "バッテリー容量",
+                    element: Localize.numbers(batteryCapacity)
+                )
                 SplitTextListItem(title: "発売日", element: Localize.date(device.releaseDate))
             } header: {
                 Text("その他")

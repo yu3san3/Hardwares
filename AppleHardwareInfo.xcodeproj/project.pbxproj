@@ -20,6 +20,7 @@
 		EB40CCB32A5EF2F00027A3E2 /* ChipData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40CCB22A5EF2F00027A3E2 /* ChipData.swift */; };
 		EB40CCB52A5F0D5F0027A3E2 /* BatteryCorrectionListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40CCB42A5F0D5F0027A3E2 /* BatteryCorrectionListItem.swift */; };
 		EB45752F2A60035D00505111 /* BatteryCorrectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB45752E2A60035D00505111 /* BatteryCorrectionType.swift */; };
+		EB4575312A6075AD00505111 /* BatteryCapacityUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4575302A6075AD00505111 /* BatteryCapacityUnit.swift */; };
 		EB646BF02924E0B500C8E24D /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BEF2924E0B500C8E24D /* DeviceData.swift */; };
 		EB646BF22924E5AF00C8E24D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */; };
 		EBCBE70C2930A66800C3B7A3 /* SystemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */; };
@@ -67,6 +68,7 @@
 		EB40CCB22A5EF2F00027A3E2 /* ChipData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipData.swift; sourceTree = "<group>"; };
 		EB40CCB42A5F0D5F0027A3E2 /* BatteryCorrectionListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCorrectionListItem.swift; sourceTree = "<group>"; };
 		EB45752E2A60035D00505111 /* BatteryCorrectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCorrectionType.swift; sourceTree = "<group>"; };
+		EB4575302A6075AD00505111 /* BatteryCapacityUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCapacityUnit.swift; sourceTree = "<group>"; };
 		EB646BEF2924E0B500C8E24D /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		EBB78961290FBDAD009D4EC9 /* AppleHardwareInfo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppleHardwareInfo.entitlements; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			children = (
 				EB40CCAE2A5EF1BC0027A3E2 /* Device.swift */,
 				EB40CCB02A5EF2370027A3E2 /* OperatingSystem.swift */,
+				EB4575302A6075AD00505111 /* BatteryCapacityUnit.swift */,
 				EB45752E2A60035D00505111 /* BatteryCorrectionType.swift */,
 				EBCC411729A526EC000EDD93 /* Localize.swift */,
 				EBCC411429A522F3000EDD93 /* Extensions.swift */,
@@ -375,6 +378,7 @@
 				EB1C43922A5DC2B8007AC1C3 /* ThermalMonitor.swift in Sources */,
 				EB646BF22924E5AF00C8E24D /* DeviceDetailView.swift in Sources */,
 				EBCC411329A52282000EDD93 /* YMTGetDeviceName.swift in Sources */,
+				EB4575312A6075AD00505111 /* BatteryCapacityUnit.swift in Sources */,
 				EB646BF02924E0B500C8E24D /* DeviceData.swift in Sources */,
 				EB40CCB32A5EF2F00027A3E2 /* ChipData.swift in Sources */,
 				EB1C43902A5DC275007AC1C3 /* SystemBoot.swift in Sources */,

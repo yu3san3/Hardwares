@@ -55,7 +55,7 @@ struct SystemInfoView: View {
                 BatteryCorrectionListItem(type: .maximumCapacity)
                 SplitTextListItem(
                     title: "実際の容量",
-                    element: Localize.numbers(battery.actualCapacity)
+                    element: Localize.numbers(battery.calculateActualCapacity())
                 )
             } header: {
                 Text("バッテリーの状態")
