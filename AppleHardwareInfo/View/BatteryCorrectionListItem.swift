@@ -108,7 +108,11 @@ private extension BatteryCorrectionListItem {
                     print("Error: Cannot convert String into Double")
                 }
             case .maximumCapacity:
-                battery.maximumCapacity = Int(textFieldContent)!
+                if let textFieldInt = Int(textFieldContent) {
+                    battery.maximumCapacity = textFieldInt
+                } else {
+                    print("Error: Cannot convert String into Int")
+                }
             }
         }
     }

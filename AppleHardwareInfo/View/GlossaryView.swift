@@ -41,12 +41,10 @@ struct GlossaryView: View {
             .listStyle(.plain)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Image(systemName: "xmark")
-                        }
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "xmark")
                     }
                 }
             }

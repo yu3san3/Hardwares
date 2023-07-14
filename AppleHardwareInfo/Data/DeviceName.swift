@@ -7,20 +7,19 @@
 
 import Foundation
 
-// MARK: YMTGetDeviceName
-public class YMTGetDeviceName {
+public class DeviceName {
 
     /// Device codes
     enum DeviceCode: String {
-        // MARK: Simulator
+        // MARK: - Simulator
         case i386
         case x86_64
-        // MARK: iPod
+        // MARK: - iPod
         //iOS 13, iOS 14, iOS 15
         /// iPod Touch 7th Generation
         case iPod9_1 = "iPod9,1"
 
-        // MARK: iPhone
+        // MARK: - iPhone
         //iOS 13, iOS 14, iOS 15
         /// iPhone 6S
         case iPhone8_1 = "iPhone8,1"
@@ -92,7 +91,7 @@ public class YMTGetDeviceName {
         /// iPhone 14 Pro Max
         case iPhone15_3 = "iPhone15,3"
         
-        // MARK: iPad
+        // MARK: - iPad
         // iPadOS 13, iPadOS 14, iPadOS 15
         /// iPad Mini 4 WiFi
         case iPad5_1 = "iPad5,1"
@@ -358,7 +357,7 @@ public class YMTGetDeviceName {
     /// Get device name from model number
     ///
     /// - Returns: Device name (iPhone X , iPhoneXS ... etc)
-    public static func getDeviceName () -> String {
+    public static func getCurrentDevice() -> String {
         var size: Int = 0
         sysctlbyname("hw.machine", nil, &size, nil, 0)
         var machine = [CChar](repeating: 0, count: Int(size))

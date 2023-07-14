@@ -159,7 +159,7 @@ private extension DeviceDetailView {
             HStack {
                 Text("技術仕様 (support.apple.com)")
                     .foregroundColor(.blue)
-                Spacer() //セル全体をタップ領域にする
+                Spacer()
             }
             .contentShape(Rectangle()) //セル全体をタップ領域にする
             .onTapGesture {

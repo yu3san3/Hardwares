@@ -32,9 +32,9 @@ extension DeviceData {
     private static func getIndexOfCurrentDeviceInDeviceArray() -> Int? {
         switch UIDevice.current.systemName {
         case OperatingSystem.iOS.rawValue:
-            return DeviceData.iPhoneNameArray.firstIndex(of: YMTGetDeviceName.getDeviceName())
+            return DeviceData.iPhoneNameArray.firstIndex(of: DeviceName.getCurrentDevice())
         case OperatingSystem.iPadOS.rawValue:
-            return DeviceData.iPadNameArray.firstIndex(of: YMTGetDeviceName.getDeviceName())
+            return DeviceData.iPadNameArray.firstIndex(of: DeviceName.getCurrentDevice())
         default:
             return nil
         }

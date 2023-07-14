@@ -141,7 +141,7 @@ private extension ContentView {
                     .foregroundColor(.blue)
                 Text("スピードテスト (fast.com)")
                     .foregroundColor(.blue)
-                Spacer() //セル全体をタップ領域にする
+                Spacer()
             }
             .contentShape(Rectangle()) //セル全体をタップ領域にする
             .onTapGesture {
