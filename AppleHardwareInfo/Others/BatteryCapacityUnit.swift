@@ -11,3 +11,14 @@ enum BatteryCapacityUnit: String {
     case mAh = "mAh"
     case Wh = "Wh"
 }
+
+extension BatteryCapacityUnit {
+    public mutating func toggle() {
+        switch self {
+        case .mAh:
+            self = .Wh
+        case .Wh:
+            self = .mAh
+        }
+    }
+}

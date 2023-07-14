@@ -74,6 +74,6 @@ extension DeviceData {
     ]
 
     static let iPadArray = [
-        DeviceData(deviceName: "iPad mini (6th generation)", chip: "A15 Bionic (5-GPU)", memoryCapacity: "4 GB",  dispInch: "8.3 inch (IPS)", dispResolution: "2,266 x 1,488 pixel", dispPpi: "326 ppi", rearCam: ["wide":"12 MP, f/1.8"], frontCam: ["ultraWide":"12 MP, f/2.2"], weight: "293 g (Cellular: 297 g)", battery: (capacity: 5124, unit: .mAh), releaseDate: "2021/09/24", technicalSpecificationsUrl: "kb/SP850"),
+        DeviceData(deviceName: "iPad mini (6th generation)", chip: "A15 Bionic (5-GPU)", memoryCapacity: "4 GB",  dispInch: "8.3 inch (IPS)", dispResolution: "2,266 x 1,488 pixel", dispPpi: "326 ppi", rearCam: ["wide":"12 MP, f/1.8"], frontCam: ["ultraWide":"12 MP, f/2.2"], weight: "293 g (Cellular: 297 g)", battery: (capacity: 19.3, unit: .Wh), releaseDate: "2021/09/24", technicalSpecificationsUrl: "kb/SP850"),
     ]
 }

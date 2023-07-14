@@ -13,11 +13,14 @@ struct DeviceDetailView: View {
     var chip: ChipData?
 
     let technicalSpecificationsUrl: URL?
+    @State private var batteryCapacityUnitDisplayMode: BatteryCapacityUnit
 
     //チップ名のみの配列を作る
     let chipNameArray = ChipData.chipArray.map({ (list) -> String in
         return list.chipName
     })
+
+    let batteryVoltage = 3.82
     
     @State private var shouldShowWebView: Bool = false
     @State private var shouldShowGlossaryView: Bool = false
@@ -34,6 +37,7 @@ struct DeviceDetailView: View {
         self.technicalSpecificationsUrl = URL(
             string: "https://support.apple.com/" + device.technicalSpecificationsUrl
         )
+        self._batteryCapacityUnitDisplayMode = State(initialValue: device.battery.unit)
     }
     
     var body: some View {
@@ -92,11 +96,7 @@ struct DeviceDetailView: View {
             }
             Section {
                 SplitTextListItem(title: "重量", element: device.weight)
-                let batteryCapacity = "\(device.battery.capacity) \(device.battery.unit.rawValue)"
-                SplitTextListItem(
-                    title: "バッテリー容量",
-                    element: batteryCapacity.localizedNumber
-                )
+                makeBatteryCapacityListItem()
                 SplitTextListItem(title: "発売日", element: device.releaseDate.localizedDate)
             } header: {
                 Text("その他")
@@ -123,6 +123,41 @@ struct DeviceDetailView: View {
 }
 
 private extension DeviceDetailView {
+    var glossaryButton: some View {
+        Button(action: {
+            shouldShowGlossaryView = true
+        }) {
+            Image(systemName: "info.circle")
+        }
+    }
+
+    @ViewBuilder
+    func makeBatteryCapacityListItem() -> some View {
+        let capacity = device.battery.capacity
+        let unit = device.battery.unit
+        let element = getConvertedElement(capacity: capacity, unit: unit, displayMode: batteryCapacityUnitDisplayMode)
+        SplitTextListItem(title: "バッテリー容量", element: element.localizedNumber)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                batteryCapacityUnitDisplayMode.toggle()
+            }
+    }
+
+    func getConvertedElement(capacity: Double, unit: BatteryCapacityUnit, displayMode: BatteryCapacityUnit) -> String {
+        if unit == displayMode {
+            return "\(capacity) \(displayMode.rawValue)"
+        }
+        switch unit {
+        case .mAh:
+            let calculated = (capacity * batteryVoltage)/1000 //mAh -> Wh
+            let formatted = String(format: "%.2f", calculated)
+            return "\(formatted) \(displayMode.rawValue)"
+        case .Wh:
+            let calculated = round( (capacity * 1000)/batteryVoltage ) //Wh -> mAh
+            return "\(calculated) \(displayMode.rawValue)"
+        }
+    }
+
     @ViewBuilder
     func makeLinkToTechnicalSpecification() -> some View {
         if let url = technicalSpecificationsUrl {
@@ -141,14 +176,6 @@ private extension DeviceDetailView {
             }
         } else {
             Text("Error: Invalid link to technical specification.")
-        }
-    }
-
-    var glossaryButton: some View {
-        Button(action: {
-            shouldShowGlossaryView = true
-        }) {
-            Image(systemName: "info.circle")
         }
     }
 }
