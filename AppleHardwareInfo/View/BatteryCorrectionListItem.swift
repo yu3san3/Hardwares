@@ -83,7 +83,7 @@ private extension BatteryCorrectionListItem {
 
     var alertTextField: some View {
         TextField(placeholder, text: $textFieldContent)
-            .keyboardType(.numberPad)
+            .keyboardType(.decimalPad)
             .onReceive( //テキストを全選択
                 NotificationCenter.default.publisher(
                     for: UITextField.textDidBeginEditingNotification

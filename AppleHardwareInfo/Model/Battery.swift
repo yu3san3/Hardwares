@@ -17,7 +17,8 @@ class Battery: ObservableObject {
     init() {
         guard let currentDeviceData = DeviceData.getCurrentDeviceData() else {
             print("Error: Current device data is not registered")
-            setupInitialRevisedCapacityUnit()
+            let initialUnit = getInitialCapacityUnit()
+            self.revisedCapacityUnit = initialUnit!.rawValue
             return
         }
         //初回起動時にバッテリー容量のデフォルト値を設定する
@@ -27,16 +28,17 @@ class Battery: ObservableObject {
         self.revisedCapacityUnit = currentDeviceData.battery.unit.rawValue
     }
 
-    private func setupInitialRevisedCapacityUnit() {
+    func getInitialCapacityUnit() -> BatteryCapacityUnit? {
         //現在使用中のOSによってrevisedCapacityUnitの初期値を変える
         switch UIDevice.current.systemName {
         case OperatingSystem.iOS.rawValue:
-            self.revisedCapacityUnit = BatteryCapacityUnit.mAh.rawValue
+            return BatteryCapacityUnit.mAh
         case OperatingSystem.iPadOS.rawValue:
-            self.revisedCapacityUnit = BatteryCapacityUnit.Wh.rawValue
+            return BatteryCapacityUnit.Wh
         default:
             break
         }
+        return nil
     }
 
     //実際のバッテリー容量

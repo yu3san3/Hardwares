@@ -75,8 +75,8 @@ private extension SystemInfoView {
     }
 
     var systemBuildListItem: some View {
+        //Version 16.5.1 (c) (Build 20F770750d)
         let str: String = ProcessInfo.processInfo.operatingSystemVersionString
-        let _ = debugPrint("str: \(str)")
         let array: [String] = str.components(separatedBy: " ")
         let systemBuildNum: String = String(array.last!.dropLast(1))
         return SplitTextListItem(title: "システムビルド", element: systemBuildNum)
@@ -172,10 +172,21 @@ private extension SystemInfoView {
     @ViewBuilder
     func makeActualCapacityListItem() -> some View {
         if let actualCapacity = battery.calculateActualCapacity() {
-            SplitTextListItem(
-                title: "実際の容量",
-                element: "\(actualCapacity) \(battery.revisedCapacityUnit)".localizedNumber
-            )
+            let initialUnit = battery.getInitialCapacityUnit()
+            switch initialUnit {
+            case .mAh:
+                SplitTextListItem(
+                    title: "実際の容量",
+                    element: "\(round(actualCapacity)) \(battery.revisedCapacityUnit)".localizedNumber
+                )
+            case .Wh:
+                SplitTextListItem(
+                    title: "実際の容量",
+                    element: "\( String(format: "%.2f", actualCapacity) ) \(battery.revisedCapacityUnit)".localizedNumber
+                )
+            default:
+                Text("Error: Initial capacity unit is nil")
+            }
         } else {
             SplitTextListItem(
                 title: "実際の容量",
