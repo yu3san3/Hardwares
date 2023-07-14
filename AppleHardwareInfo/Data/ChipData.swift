@@ -7,6 +7,29 @@
 
 import Foundation
 
+extension ChipData {
+    //チップ名のみの配列を作る
+    static let chipNameArray = ChipData.chipArray.map({ (list) -> String in
+        return list.chipName
+    })
+}
+
+extension ChipData {
+    static func getCurrentChipData() -> ChipData? {
+        guard let index = getIndexOfCurrentChipInChipArray() else {
+            return nil
+        }
+        return chipArray[index]
+    }
+
+    private static func getIndexOfCurrentChipInChipArray() -> Int? {
+        guard let deviceData = DeviceData.getCurrentDeviceData() else {
+            return nil
+        }
+        return chipNameArray.firstIndex(of: deviceData.chip)
+    }
+}
+
 struct ChipData: Identifiable {
     var id = UUID()
     var chipName: String //チップ名

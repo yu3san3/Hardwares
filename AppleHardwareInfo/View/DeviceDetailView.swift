@@ -15,11 +15,6 @@ struct DeviceDetailView: View {
     let technicalSpecificationsUrl: URL?
     @State private var batteryCapacityUnitDisplayMode: BatteryCapacityUnit
 
-    //チップ名のみの配列を作る
-    let chipNameArray = ChipData.chipArray.map({ (list) -> String in
-        return list.chipName
-    })
-
     let batteryVoltage = 3.82
     
     @State private var shouldShowWebView: Bool = false
@@ -28,8 +23,8 @@ struct DeviceDetailView: View {
     init(device: DeviceData) {
         self.device = device
         //chipListにおける現在のデバイスに搭載されているチップのindexを探してindexに代入
-        if let index = chipNameArray.firstIndex(of: device.chip) {
-            self.chip = ChipData.chipArray[index]
+        if let chipData = ChipData.getCurrentChipData() {
+            self.chip = chipData
         } else {
             self.chip = nil
         }
