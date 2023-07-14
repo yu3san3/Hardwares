@@ -9,12 +9,8 @@ import SwiftUI
 
 extension DeviceData {
     //デバイス名のみの配列を作る
-    static let iPhoneNameArray = DeviceData.iPhoneArray.map({ (list) -> String in
-        return list.deviceName
-    })
-    static let iPadNameArray = DeviceData.iPadArray.map({ (list) -> String in
-        return list.deviceName
-    })
+    static let iPhoneNameArray = DeviceData.iPhoneArray.map{ $0.deviceName }
+    static let iPadNameArray = DeviceData.iPadArray.map{ $0.deviceName }
 }
 
 extension DeviceData {

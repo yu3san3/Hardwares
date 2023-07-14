@@ -23,8 +23,8 @@ struct DeviceDetailView: View {
     init(device: DeviceData) {
         self.device = device
         //chipListにおける現在のデバイスに搭載されているチップのindexを探してindexに代入
-        if let chipData = ChipData.getCurrentChipData() {
-            self.chip = chipData
+        if let index = ChipData.chipNameArray.firstIndex(of: device.chip) {
+            self.chip = ChipData.chipArray[index]
         } else {
             self.chip = nil
         }
