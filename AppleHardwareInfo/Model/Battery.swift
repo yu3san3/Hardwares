@@ -9,7 +9,7 @@ import SwiftUI
 
 class Battery: ObservableObject {
 
-    @AppStorage("revisedBatteryCapacity") var revisedCapacity: Int? //補正された容量
+    @AppStorage("revisedBatteryCapacity") var revisedCapacity: Double? //補正された容量
     @AppStorage("revisedBatteryCapacityUnit") var revisedCapacityUnit = ""
     @AppStorage("maximumBatteryCapacity") var maximumCapacity = 100 //最大容量
     let maximumCapacityUnit = "%"
@@ -29,13 +29,12 @@ class Battery: ObservableObject {
     }
 
     //実際のバッテリー容量
-    func calculateActualCapacity() -> Int? {
+    func calculateActualCapacity() -> Double? {
         guard let revisedCapacity = self.revisedCapacity else {
             return nil
         }
-        let revisedDouble = Double(revisedCapacity)
         let maximumDouble = Double(maximumCapacity)
-        let actualCapacity: Double = revisedDouble * (maximumDouble / 100) //2000 * 0.98
-        return Int(actualCapacity) //Double -> Intの変換で、小数点以下は切り捨てている
+        let actualCapacity: Double = revisedCapacity * (maximumDouble / 100) //2000(mAh) * 0.98
+        return actualCapacity
     }
 }

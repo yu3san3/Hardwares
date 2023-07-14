@@ -53,11 +53,7 @@ struct SystemInfoView: View {
             Section {
                 BatteryCorrectionListItem(type: .revisedCapacity)
                 BatteryCorrectionListItem(type: .maximumCapacity)
-                let actualCapacity = "\(battery.calculateActualCapacity() ?? 0) \(battery.revisedCapacityUnit)"
-                SplitTextListItem(
-                    title: "実際の容量",
-                    element: Localize.numbers(actualCapacity)
-                )
+                makeActualCapacityListItem()
             } header: {
                 Text("バッテリーの状態")
             }
@@ -170,6 +166,21 @@ private extension SystemInfoView {
             Text("深刻フッター")
         default:
             Text("Error: Unknown value of thermal state.")
+        }
+    }
+
+    @ViewBuilder
+    func makeActualCapacityListItem() -> some View {
+        if let actualCapacity = battery.calculateActualCapacity() {
+            SplitTextListItem(
+                title: "実際の容量",
+                element: Localize.numbers("\(actualCapacity) \(battery.revisedCapacityUnit)")
+            )
+        } else {
+            SplitTextListItem(
+                title: "実際の容量",
+                element: "-"
+            )
         }
     }
 }

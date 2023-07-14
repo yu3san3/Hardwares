@@ -21,7 +21,7 @@ struct BatteryCorrectionListItem: View {
             if let revisedCapacity = battery.revisedCapacity {
                 return "\(revisedCapacity) \(battery.revisedCapacityUnit)"
             } else {
-                return "unknown \(battery.revisedCapacityUnit)"
+                return "unknown"
             }
         case .maximumCapacity:
             return "\(battery.maximumCapacity) \(battery.maximumCapacityUnit)"
@@ -101,7 +101,11 @@ private extension BatteryCorrectionListItem {
             //WARN: - 強制アンラップになってる
             switch type {
             case .revisedCapacity:
-                battery.revisedCapacity = Int(textFieldContent)!
+                if let textFieldDouble = Double(textFieldContent) {
+                    battery.revisedCapacity = textFieldDouble
+                } else {
+                    print("Error: Cannot convert String into Double")
+                }
             case .maximumCapacity:
                 battery.maximumCapacity = Int(textFieldContent)!
             }

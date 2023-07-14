@@ -56,7 +56,7 @@ struct DeviceData: Identifiable {
     var rearCam: [String:String] //背面カメラ
     var frontCam: [String:String] //前面カメラ
     var weight: String //重量
-    var battery: (capacity: Int, unit: BatteryCapacityUnit) //バッテリー容量
+    var battery: (capacity: Double, unit: BatteryCapacityUnit) //バッテリー容量
     var releaseDate: String //発売日
     var technicalSpecificationsUrl: String //技術仕様リンク
 }
