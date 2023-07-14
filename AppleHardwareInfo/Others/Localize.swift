@@ -7,33 +7,28 @@
 
 import Foundation
 
-public class Localize {
-    
+extension String {
     //文字列を投げると、空白に挟まれた部分の数字がローカライズされる
-    public static func numbers(_ str: String) -> String {
-        
-        var result: String = ""
-        
-        let array: [String] = str.components(separatedBy: " ") //文字列を空白で分けた配列に変換
-        for i in 0 ..< array.count {
-            if let float = Float(array[i]) {
+    public var localizedNumber: String {
+        var localizedString: String = ""
+        let components: [String] = self.components(separatedBy: " ") //文字列を空白で分けた配列に変換
+        for component in components {
+            if let float = Float(component) {
                 //Flotへ変換できた場合
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .decimal
-                let commaAdded: String = formatter.string(from: NSNumber(value: float))! //コンマを追加
-                result.append(commaAdded)
+                let formattedNumber: String = formatter.string(from: NSNumber(value: float) )!
+                localizedString += formattedNumber
             } else {
                 //Floatへ変換できなかった場合は要素をそのまま追加する(単位などがこれにあたる)
-                result.append(array[i])
+                localizedString += component
             }
-            result.append(" ")
+            localizedString += " "
         }
-        
-        return String(result.dropLast()) //最後の余分な空白を取り除いて返す
+        return localizedString.trimmingCharacters(in: .whitespaces) //最後の余分な空白を取り除いて返す
     }
-    
-    //yyyy/MM/ddの形式をローカライズする
-    public static func date(_ dateStr: String) -> String {
+
+    public var localizedDate: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
         //ロケール設定(端末の暦設定に引きづられないようにする)
@@ -41,7 +36,7 @@ public class Localize {
         //タイムゾーン設定(端末設定によらず、どこの地域の時間帯なのかを指定する)
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         //いったんDate型に変換
-        let releaseDate = formatter.date(from: dateStr)
+        let releaseDate = formatter.date(from: self)
         formatter.dateStyle = .long
         //ロケール設定を戻す
         formatter.locale = Locale(identifier: Locale.current.identifier)
