@@ -145,8 +145,8 @@
 			children = (
 				EB40CCAE2A5EF1BC0027A3E2 /* Device.swift */,
 				EB40CCB02A5EF2370027A3E2 /* OperatingSystem.swift */,
-				EB4575302A6075AD00505111 /* BatteryCapacityUnit.swift */,
 				EB45752E2A60035D00505111 /* BatteryCorrectionType.swift */,
+				EB4575302A6075AD00505111 /* BatteryCapacityUnit.swift */,
 				EBCC411729A526EC000EDD93 /* Localize.swift */,
 				EBCC411429A522F3000EDD93 /* Extensions.swift */,
 			);

@@ -21,7 +21,8 @@ struct BatteryCorrectionListItem: View {
             if let revisedCapacity = battery.revisedCapacity {
                 return "\(revisedCapacity) \(battery.revisedCapacityUnit)"
             } else {
-                return "unknown"
+                //revisedCapacityがnilの場合の表示
+                return "unknown \(battery.revisedCapacityUnit)"
             }
         case .maximumCapacity:
             return "\(battery.maximumCapacity) \(battery.maximumCapacityUnit)"
@@ -58,7 +59,8 @@ struct BatteryCorrectionListItem: View {
                     alertTextField
                     alertOkButton
                     alertCancelButton
-                }, message: {
+                },
+                message: {
                     Text("現在の値: \(Localize.numbers(element))")
                 }
             )
@@ -98,7 +100,6 @@ private extension BatteryCorrectionListItem {
 
     var alertOkButton: some View {
         Button("OK") {
-            //WARN: - 強制アンラップになってる
             switch type {
             case .revisedCapacity:
                 if let textFieldDouble = Double(textFieldContent) {
