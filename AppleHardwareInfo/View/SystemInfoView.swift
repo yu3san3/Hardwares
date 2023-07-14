@@ -66,7 +66,7 @@ struct SystemInfoView: View {
 private extension SystemInfoView {
     var systemListItem: some View {
         let systemName = UIDevice.current.systemName
-        let systemVersion = UIDevice.current.systemVersion
+        let systemVersion = getSystemVersion()
         let systemNameAndVersion = "\(systemName) \(systemVersion)"
         return SplitTextListItem(
             title: "システム",
@@ -74,10 +74,22 @@ private extension SystemInfoView {
         )
     }
 
+    func getSystemVersion() -> String {
+        let systemVersion: String = ProcessInfo.processInfo.operatingSystemVersionString
+        let array: [String] = systemVersion.components(separatedBy: " ")
+        if array.count == 4 { //セキュリティパッチがない場合
+            return array[1]
+        } else if array.count == 5 { //セキュリティパッチがある場合
+            return "\(array[1]) \(array[2])"
+        } else {
+            return "Error: Failed to get system version (array.count: \(array.count)"
+        }
+    }
+
     var systemBuildListItem: some View {
         //Version 16.5.1 (c) (Build 20F770750d)
-        let str: String = ProcessInfo.processInfo.operatingSystemVersionString
-        let array: [String] = str.components(separatedBy: " ")
+        let systemVersionStr: String = ProcessInfo.processInfo.operatingSystemVersionString
+        let array: [String] = systemVersionStr.components(separatedBy: " ")
         let systemBuildNum: String = String(array.last!.dropLast(1))
         return SplitTextListItem(title: "システムビルド", element: systemBuildNum)
     }
