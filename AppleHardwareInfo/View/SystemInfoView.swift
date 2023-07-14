@@ -174,7 +174,7 @@ private extension SystemInfoView {
         if let actualCapacity = battery.calculateActualCapacity() {
             SplitTextListItem(
                 title: "実際の容量",
-                element: Localize.numbers("\(actualCapacity) \(battery.revisedCapacityUnit)")
+                element: "\(actualCapacity) \(battery.revisedCapacityUnit)".localizedNumber
             )
         } else {
             SplitTextListItem(

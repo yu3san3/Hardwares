@@ -61,7 +61,7 @@ struct BatteryCorrectionListItem: View {
                     alertCancelButton
                 },
                 message: {
-                    Text("現在の値: \(Localize.numbers(element))")
+                    Text("現在の値: \(element.localizedNumber)")
                 }
             )
     }
@@ -73,7 +73,7 @@ private extension BatteryCorrectionListItem {
             Text(title)
                 .defaultStyle()
             Spacer()
-            Text(Localize.numbers(element))
+            Text(element.localizedNumber)
                 .defaultStyle()
             Image(systemName: "chevron.forward") //Disclosure Indicator(>)
                 .font(Font.system(.caption).weight(.bold))

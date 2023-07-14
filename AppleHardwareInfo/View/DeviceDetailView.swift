@@ -61,8 +61,8 @@ struct DeviceDetailView: View {
                 Text("メモリ")
             }
             Section {
-                SplitTextListItem(title: "サイズ", element: Localize.numbers(device.dispInch))
-                SplitTextListItem(title: "解像度", element: Localize.numbers(device.dispResolution))
+                SplitTextListItem(title: "サイズ", element: device.dispInch.localizedNumber)
+                SplitTextListItem(title: "解像度", element: device.dispResolution.localizedNumber)
                 SplitTextListItem(title: "画素密度", element: device.dispPpi)
             } header: {
                 Text("ディスプレイ")
@@ -95,9 +95,9 @@ struct DeviceDetailView: View {
                 let batteryCapacity = "\(device.battery.capacity) \(device.battery.unit.rawValue)"
                 SplitTextListItem(
                     title: "バッテリー容量",
-                    element: Localize.numbers(batteryCapacity)
+                    element: batteryCapacity.localizedNumber
                 )
-                SplitTextListItem(title: "発売日", element: Localize.date(device.releaseDate))
+                SplitTextListItem(title: "発売日", element: device.releaseDate.localizedDate)
             } header: {
                 Text("その他")
             }
