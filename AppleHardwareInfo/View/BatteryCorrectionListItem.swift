@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BatteryCorrectionListItem: View {
+    @ObservedObject var battery = Battery()
 
     let type: BatteryCorrectionType
 
@@ -17,13 +18,15 @@ struct BatteryCorrectionListItem: View {
     private var element: String {
         switch type {
         case .revisedCapacity:
-            return battery.revisedCapacity
+            if let revisedCapacity = battery.revisedCapacity {
+                return "\(revisedCapacity) \(battery.revisedCapacityUnit)"
+            } else {
+                return "unknown \(battery.revisedCapacityUnit)"
+            }
         case .maximumCapacity:
-            return battery.maximumCapacity
+            return "\(battery.maximumCapacity) \(battery.maximumCapacityUnit)"
         }
     }
-
-    @ObservedObject var battery = Battery()
 
     @State private var isShowingAlert: Bool = false
     @State private var textFieldContent: String = ""
@@ -42,6 +45,28 @@ struct BatteryCorrectionListItem: View {
     }
 
     var body: some View {
+        listItem
+            .contentShape(Rectangle())
+            .onTapGesture {
+                textFieldContent = element.firstComponents!
+                isShowingAlert = true
+            }
+            .alert(
+                "\(title.toString())の補正",
+                isPresented: $isShowingAlert,
+                actions: {
+                    alertTextField
+                    alertOkButton
+                    alertCancelButton
+                }, message: {
+                    Text("現在の値: \(Localize.numbers(element))")
+                }
+            )
+    }
+}
+
+private extension BatteryCorrectionListItem {
+    var listItem: some View {
         HStack {
             Text(title)
                 .defaultStyle()
@@ -52,43 +77,46 @@ struct BatteryCorrectionListItem: View {
                 .font(Font.system(.caption).weight(.bold))
                 .foregroundColor(Color(UIColor.tertiaryLabel))
         }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            let array: [String] = element.components(separatedBy: " ")
-            textFieldContent = String(array[0])
-            self.isShowingAlert = true
-        }
-        .alert(
-            "\(title.toString())の補正",
-            isPresented: $isShowingAlert,
-            actions: {
-                TextField(placeholder, text: $textFieldContent)
-                    .keyboardType(.numberPad)
-                    .onReceive( //テキストを全選択
-                        NotificationCenter.default.publisher(
-                            for: UITextField.textDidBeginEditingNotification
-                        )
-                    ) { obj in
-                        if let textField = obj.object as? UITextField {
-                            textField.selectedTextRange = textField.textRange(
-                                from: textField.beginningOfDocument,
-                                to: textField.endOfDocument
-                            )
-                        }
-                    }
-                Button("OK") {
-                    switch type {
-                    case .revisedCapacity:
-                        battery.revisedCapacity = textFieldContent + " mAh"
-                    case .maximumCapacity:
-                        battery.maximumCapacity = textFieldContent + " %"
-                    }
+    }
+
+    var alertTextField: some View {
+        TextField(placeholder, text: $textFieldContent)
+            .keyboardType(.numberPad)
+            .onReceive( //テキストを全選択
+                NotificationCenter.default.publisher(
+                    for: UITextField.textDidBeginEditingNotification
+                )
+            ) { obj in
+                if let textField = obj.object as? UITextField {
+                    textField.selectedTextRange = textField.textRange(
+                        from: textField.beginningOfDocument,
+                        to: textField.endOfDocument
+                    )
                 }
-                Button("キャンセル", role: .cancel) {}
-            }, message: {
-                Text("現在の値: \(Localize.numbers(element))")
             }
-        )
+    }
+
+    var alertOkButton: some View {
+        Button("OK") {
+            //WARN: - 強制アンラップになってる
+            switch type {
+            case .revisedCapacity:
+                battery.revisedCapacity = Int(textFieldContent)!
+            case .maximumCapacity:
+                battery.maximumCapacity = Int(textFieldContent)!
+            }
+        }
+    }
+
+    var alertCancelButton: some View {
+        Button("キャンセル", role: .cancel) {}
+    }
+}
+
+private extension String {
+    var firstComponents: String? {
+        let components: [String] = self.components(separatedBy: " ")
+        return components.first
     }
 }
 

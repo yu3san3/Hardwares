@@ -9,39 +9,33 @@ import SwiftUI
 
 class Battery: ObservableObject {
 
-    @AppStorage("revicedBatteryCapacityKey") var revisedCapacity: String = "default" //補正された容量
-    @AppStorage("maximumBatteryCapacityKey") var maximumCapacity: String = "100 %" //最大容量
-
-    //実際のバッテリー容量
-    var actualCapacity: String {
-        //文字列から要素を取得
-        func getElement(_ str: String) -> Float? {
-            let array: [String] = str.components(separatedBy: " ") //文字列を空白で分けた配列に変換
-            return Float(array[0]) //要素のみを返す
-        }
-
-        guard let revisedCapacity: Float = getElement(revisedCapacity) else { //2000 mAh → 2000
-            return "-"
-        }
-        guard let maximumCapacity: Float = getElement(maximumCapacity) else { //98 % → 98
-            return "Error: Invalid Value."
-        }
-        let actualCapacity: Float = round(revisedCapacity * (maximumCapacity / 100)) //2000 * 0.98
-        return String(actualCapacity) + " mAh"
-    }
+    @AppStorage("revisedBatteryCapacity") var revisedCapacity: Int? //補正された容量
+    @AppStorage("revisedBatteryCapacityUnit") var revisedCapacityUnit = ""
+    @AppStorage("maximumBatteryCapacity") var maximumCapacity = 100 //最大容量
+    let maximumCapacityUnit = "%"
 
     init() {
+        guard let currentDeviceData = DeviceData.getCurrentDeviceData() else {
+            print("Unknown device")
+            return
+        }
         //初回起動時にバッテリー容量のデフォルト値を設定する
-        if revisedCapacity == "default" {
-            revisedCapacity = registeredCapacity
+        if self.revisedCapacity == nil {
+            self.revisedCapacity = currentDeviceData.battery.capacity
+        }
+        if self.revisedCapacityUnit.isEmpty {
+            self.revisedCapacityUnit = currentDeviceData.battery.unit.rawValue
         }
     }
 
-    //DeviceListに登録されている、currentDeviceのバッテリー容量
-    private var registeredCapacity: String {
-        guard let currentDeviceData = DeviceData.getCurrentDeviceData() else {
-            return "unknown mAh"
+    //実際のバッテリー容量
+    func calculateActualCapacity() -> Int? {
+        guard let revisedCapacity = self.revisedCapacity else {
+            return nil
         }
-        return currentDeviceData.batteryCapacity
+        let revisedDouble = Double(revisedCapacity)
+        let maximumDouble = Double(maximumCapacity)
+        let actualCapacity: Double = revisedDouble * (maximumDouble / 100) //2000 * 0.98
+        return Int(actualCapacity) //Double -> Intの変換で、小数点以下は切り捨てている
     }
 }
