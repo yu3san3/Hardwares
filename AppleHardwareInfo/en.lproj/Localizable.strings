@@ -71,7 +71,7 @@
 
 "重量" = "Weight";
 "バッテリー容量" = "Battery Capacity";
-"約 %@ %@" = "about %@ %@";
+"約 %@ %@" = "About %@ %@";
 "発売日" = "Release Date";
 "%@ 前" = "%@ ago";
 "その他" = "Others";

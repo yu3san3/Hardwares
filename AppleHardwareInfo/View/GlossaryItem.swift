@@ -16,14 +16,14 @@ struct GlossaryItem: View {
     var body: some View {
         VStack {
             HStack {
-                Text("● \(item.toString())")
+                Text("● \(item.toString)")
                     .fontWeight(.bold)
                     .defaultStyle()
                 Spacer()
             }
             Spacer()
                 .frame(height: 7)
-            LongText(element.toString())
+            LongText(element.toString)
         }
     }
 }

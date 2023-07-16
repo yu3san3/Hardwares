@@ -53,7 +53,7 @@ struct BatteryCorrectionListItem: View {
                 isShowingAlert = true
             }
             .alert(
-                "\(title.toString())の補正",
+                "\(title.toString)の補正",
                 isPresented: $isShowingAlert,
                 actions: {
                     alertTextField

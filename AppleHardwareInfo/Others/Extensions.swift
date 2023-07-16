@@ -16,30 +16,19 @@ extension Text {
 
 extension LocalizedStringKey {
     //ローカライズされた値を返す
-    public func toString() -> String {
+    public var toString: String {
         //use reflection
         let mirror = Mirror(reflecting: self)
-        
         //key属性の値を探す
-        let attributeLabelAndValue = mirror.children.first { (arg0) -> Bool in
-            let (label, _) = arg0
-            if(label == "key"){
-                return true;
-            }
-            return false;
-        }
-        
-        if(attributeLabelAndValue != nil) {
-            //NSLocalizedStringを介して、見つかったkeyのローカライズを要求する
-            return String.localizedStringWithFormat(
-                NSLocalizedString(
-                    attributeLabelAndValue!.value as! String,
-                    comment: ""
-                )
-            );
-        }
-        else {
+        guard let attributeLabelAndValue = mirror.children.first(where: { $0.label == "key" }) else {
             return "Swift LocalizedStringKey signature must have changed."
         }
+        //NSLocalizedStringを介して、見つかったkeyのローカライズを要求する
+        return String.localizedStringWithFormat(
+            NSLocalizedString(
+                String(describing: attributeLabelAndValue.value),
+                comment: ""
+            )
+        );
     }
 }
