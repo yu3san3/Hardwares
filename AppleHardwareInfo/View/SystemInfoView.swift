@@ -187,14 +187,16 @@ private extension SystemInfoView {
             let initialUnit = battery.getInitialCapacityUnit()
             switch initialUnit {
             case .mAh:
+                let element = "\( round(actualCapacity) ) \(battery.revisedCapacityUnit)"
                 SplitTextListItem(
                     title: "実際の容量",
-                    element: "\(round(actualCapacity)) \(battery.revisedCapacityUnit)".localizedNumber
+                    element: element.localizedNumber
                 )
             case .Wh:
+                let element = "\( String(format: "%.2f", actualCapacity) ) \(battery.revisedCapacityUnit)"
                 SplitTextListItem(
                     title: "実際の容量",
-                    element: "\( String(format: "%.2f", actualCapacity) ) \(battery.revisedCapacityUnit)".localizedNumber
+                    element: element.localizedNumber
                 )
             default:
                 Text("Error: Initial capacity unit is nil")
