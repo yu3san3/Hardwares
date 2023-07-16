@@ -21,6 +21,7 @@
 		EB40CCB52A5F0D5F0027A3E2 /* BatteryCorrectionListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40CCB42A5F0D5F0027A3E2 /* BatteryCorrectionListItem.swift */; };
 		EB45752F2A60035D00505111 /* BatteryCorrectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB45752E2A60035D00505111 /* BatteryCorrectionType.swift */; };
 		EB4575312A6075AD00505111 /* BatteryCapacityUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4575302A6075AD00505111 /* BatteryCapacityUnit.swift */; };
+		EB4575332A63E2E400505111 /* TimeDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4575322A63E2E400505111 /* TimeDisplayMode.swift */; };
 		EB646BF02924E0B500C8E24D /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BEF2924E0B500C8E24D /* DeviceData.swift */; };
 		EB646BF22924E5AF00C8E24D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */; };
 		EBCBE70C2930A66800C3B7A3 /* SystemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */; };
@@ -69,6 +70,7 @@
 		EB40CCB42A5F0D5F0027A3E2 /* BatteryCorrectionListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCorrectionListItem.swift; sourceTree = "<group>"; };
 		EB45752E2A60035D00505111 /* BatteryCorrectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCorrectionType.swift; sourceTree = "<group>"; };
 		EB4575302A6075AD00505111 /* BatteryCapacityUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCapacityUnit.swift; sourceTree = "<group>"; };
+		EB4575322A63E2E400505111 /* TimeDisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDisplayMode.swift; sourceTree = "<group>"; };
 		EB646BEF2924E0B500C8E24D /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
 		EBB78961290FBDAD009D4EC9 /* AppleHardwareInfo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppleHardwareInfo.entitlements; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				EB40CCB02A5EF2370027A3E2 /* OperatingSystem.swift */,
 				EB45752E2A60035D00505111 /* BatteryCorrectionType.swift */,
 				EB4575302A6075AD00505111 /* BatteryCapacityUnit.swift */,
+				EB4575322A63E2E400505111 /* TimeDisplayMode.swift */,
 				EBCC411729A526EC000EDD93 /* Localize.swift */,
 				EBCC411429A522F3000EDD93 /* Extensions.swift */,
 			);
@@ -375,6 +378,7 @@
 				EBCC411529A522F3000EDD93 /* Extensions.swift in Sources */,
 				EB1C438B2A5DBD44007AC1C3 /* AllDeviceListView.swift in Sources */,
 				EB40CCB52A5F0D5F0027A3E2 /* BatteryCorrectionListItem.swift in Sources */,
+				EB4575332A63E2E400505111 /* TimeDisplayMode.swift in Sources */,
 				EB1C43922A5DC2B8007AC1C3 /* ThermalMonitor.swift in Sources */,
 				EB646BF22924E5AF00C8E24D /* DeviceDetailView.swift in Sources */,
 				EBCC411329A52282000EDD93 /* DeviceName.swift in Sources */,

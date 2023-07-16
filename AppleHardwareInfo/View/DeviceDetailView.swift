@@ -15,6 +15,8 @@ struct DeviceDetailView: View {
     let technicalSpecificationsUrl: URL?
     @State private var batteryCapacityUnitDisplayMode: BatteryCapacityUnit
 
+    @State private var timeDisplayMode: TimeDisplayMode = .monthDay
+
     let batteryVoltage = 3.82
     
     @State private var shouldShowWebView: Bool = false
@@ -92,7 +94,7 @@ struct DeviceDetailView: View {
             Section {
                 SplitTextListItem(title: "重量", element: device.weight)
                 makeBatteryCapacityListItem()
-                SplitTextListItem(title: "発売日", element: device.releaseDate.localizedDate)
+                makeReleaseDateListItem()
             } header: {
                 Text("その他")
             }
@@ -146,10 +148,29 @@ private extension DeviceDetailView {
         case .mAh:
             let calculated = (capacity * batteryVoltage)/1000 //mAh -> Wh
             let formatted = String(format: "%.2f", calculated)
-            return "\(formatted) \(displayMode.rawValue)"
+            return "約 \(formatted) \(displayMode.rawValue)"
         case .Wh:
             let calculated = round( (capacity * 1000)/batteryVoltage ) //Wh -> mAh
-            return "\(calculated) \(displayMode.rawValue)"
+            return "約 \(calculated) \(displayMode.rawValue)"
+        }
+    }
+
+    @ViewBuilder
+    func makeReleaseDateListItem() -> some View {
+        let element = getReleaseDateElement()
+        SplitTextListItem(title: "発売日", element: element)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                timeDisplayMode.toggle()
+            }
+    }
+
+    func getReleaseDateElement() -> String {
+        switch timeDisplayMode {
+        case .monthDay:
+            return "\(device.releaseDate.localizedDate.monthDay)"
+        case .daysElapsed:
+            return "\(device.releaseDate.localizedDate.daysElapsed) 前"
         }
     }
 

@@ -71,7 +71,9 @@
 
 "重量" = "Weight";
 "バッテリー容量" = "Battery Capacity";
+"約 %@ %@" = "about %@ %@";
 "発売日" = "Release Date";
+"%@ 前" = "%@ ago";
 "その他" = "Others";
 
 "技術仕様 (support.apple.com)" = "Technical Specifications (support.apple.com)";
