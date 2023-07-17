@@ -24,6 +24,7 @@
 		EB4575332A63E2E400505111 /* TimeDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4575322A63E2E400505111 /* TimeDisplayMode.swift */; };
 		EB646BF02924E0B500C8E24D /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BEF2924E0B500C8E24D /* DeviceData.swift */; };
 		EB646BF22924E5AF00C8E24D /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */; };
+		EBAC8FC72A6592C600D4897A /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC8FC62A6592C600D4897A /* Camera.swift */; };
 		EBCBE70C2930A66800C3B7A3 /* SystemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */; };
 		EBCC411329A52282000EDD93 /* DeviceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCC411229A52282000EDD93 /* DeviceName.swift */; };
 		EBCC411529A522F3000EDD93 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCC411429A522F3000EDD93 /* Extensions.swift */; };
@@ -73,6 +74,7 @@
 		EB4575322A63E2E400505111 /* TimeDisplayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDisplayMode.swift; sourceTree = "<group>"; };
 		EB646BEF2924E0B500C8E24D /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		EB646BF12924E5AF00C8E24D /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
+		EBAC8FC62A6592C600D4897A /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		EBB78961290FBDAD009D4EC9 /* AppleHardwareInfo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppleHardwareInfo.entitlements; sourceTree = "<group>"; };
 		EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemInfoView.swift; sourceTree = "<group>"; };
 		EBCC411229A52282000EDD93 /* DeviceName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceName.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			children = (
 				EB40CCAE2A5EF1BC0027A3E2 /* Device.swift */,
 				EB40CCB02A5EF2370027A3E2 /* OperatingSystem.swift */,
+				EBAC8FC62A6592C600D4897A /* Camera.swift */,
 				EB45752E2A60035D00505111 /* BatteryCorrectionType.swift */,
 				EB4575302A6075AD00505111 /* BatteryCapacityUnit.swift */,
 				EB4575322A63E2E400505111 /* TimeDisplayMode.swift */,
@@ -372,6 +375,7 @@
 				EB1C43892A5DAB4A007AC1C3 /* SplitTextListItem.swift in Sources */,
 				EB45752F2A60035D00505111 /* BatteryCorrectionType.swift in Sources */,
 				EBCC411829A526EC000EDD93 /* Localize.swift in Sources */,
+				EBAC8FC72A6592C600D4897A /* Camera.swift in Sources */,
 				EB1C43982A5DDB11007AC1C3 /* SafariView.swift in Sources */,
 				EBCBE70C2930A66800C3B7A3 /* SystemInfoView.swift in Sources */,
 				EBE586662837533B004B4C3E /* ContentView.swift in Sources */,

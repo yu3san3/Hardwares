@@ -15,10 +15,8 @@ struct DeviceDetailView: View {
     let technicalSpecificationsUrl: URL?
     @State private var batteryCapacityUnitDisplayMode: BatteryCapacityUnit
 
-    @State private var timeDisplayMode: TimeDisplayMode = .monthDay
-
     let batteryVoltage = 3.82
-    
+    @State private var timeDisplayMode: TimeDisplayMode = .monthDay
     @State private var shouldShowWebView: Bool = false
     @State private var shouldShowGlossaryView: Bool = false
 
@@ -32,7 +30,7 @@ struct DeviceDetailView: View {
         }
         //技術仕様のURLを完成させる
         self.technicalSpecificationsUrl = URL(
-            string: "https://support.apple.com/" + device.technicalSpecificationsUrl
+            string: "https://support.apple.com/\(device.technicalSpecificationsUrl)"
         )
         self._batteryCapacityUnitDisplayMode = State(initialValue: device.battery.unit)
     }
@@ -69,24 +67,24 @@ struct DeviceDetailView: View {
                 Text("ディスプレイ")
             }
             Section {
-                if device.rearCam["wide"] != nil {
-                    SplitTextListItem(title: "広角", element: device.rearCam["wide"]!)
+                if let rearCamWide = device.rearCam[.wide] {
+                    SplitTextListItem(title: "広角", element: rearCamWide)
                 }
-                if device.rearCam["ultraWide"] != nil {
-                    SplitTextListItem(title: "超広角", element: device.rearCam["ultraWide"]!)
+                if let rearCamUltraWide = device.rearCam[.ultraWide] {
+                    SplitTextListItem(title: "超広角", element: rearCamUltraWide)
                 }
-                if device.rearCam["tele"] != nil {
-                    SplitTextListItem(title: "望遠", element: device.rearCam["tele"]!)
+                if let rearCamTele = device.rearCam[.tele] {
+                    SplitTextListItem(title: "望遠", element: rearCamTele)
                 }
             } header: {
                 Text("背面カメラ")
             }
             Section {
-                if device.frontCam["wide"] != nil {
-                    SplitTextListItem(title: "広角", element: device.frontCam["wide"]!)
+                if let frontCamWide = device.frontCam[.wide] {
+                    SplitTextListItem(title: "広角", element: frontCamWide)
                 }
-                if device.frontCam["ultraWide"] != nil {
-                    SplitTextListItem(title: "超広角", element: device.frontCam["ultraWide"]!)
+                if let frontCamUltraWide = device.frontCam[.ultraWide] {
+                    SplitTextListItem(title: "超広角", element: frontCamUltraWide)
                 }
             } header: {
                 Text("前面カメラ")
@@ -132,7 +130,9 @@ private extension DeviceDetailView {
     func makeBatteryCapacityListItem() -> some View {
         let capacity = device.battery.capacity
         let unit = device.battery.unit
-        let element = getConvertedElement(capacity: capacity, unit: unit, displayMode: batteryCapacityUnitDisplayMode)
+        let element = getConvertedElement(capacity: capacity,
+                                          unit: unit,
+                                          displayMode: batteryCapacityUnitDisplayMode)
         SplitTextListItem(title: "バッテリー容量", element: element.localizedNumber)
             .contentShape(Rectangle())
             .onTapGesture {
