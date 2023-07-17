@@ -192,7 +192,7 @@ private extension SystemInfoView {
                     title: "実際の容量",
                     element: element.localizedNumber
                 )
-            case .Wh:
+            case .wh:
                 let element = "\( String(format: "%.2f", actualCapacity) ) \(battery.revisedCapacityUnit)"
                 SplitTextListItem(
                     title: "実際の容量",

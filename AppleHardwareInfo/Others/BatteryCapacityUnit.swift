@@ -9,15 +9,15 @@ import Foundation
 
 enum BatteryCapacityUnit: String {
     case mAh = "mAh"
-    case Wh = "Wh"
+    case wh = "Wh"
 }
 
 extension BatteryCapacityUnit {
     public mutating func toggle() {
         switch self {
         case .mAh:
-            self = .Wh
-        case .Wh:
+            self = .wh
+        case .wh:
             self = .mAh
         }
     }

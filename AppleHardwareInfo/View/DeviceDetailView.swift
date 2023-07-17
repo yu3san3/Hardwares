@@ -149,7 +149,7 @@ private extension DeviceDetailView {
             let calculated = (capacity * batteryVoltage)/1000 //mAh -> Wh
             let formatted = String(format: "%.2f", calculated)
             return "約 \(formatted) \(displayMode.rawValue)"
-        case .Wh:
+        case .wh:
             let calculated = round( (capacity * 1000)/batteryVoltage ) //Wh -> mAh
             return "約 \(calculated) \(displayMode.rawValue)"
         }

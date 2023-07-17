@@ -34,7 +34,7 @@ class Battery: ObservableObject {
         case OperatingSystem.iOS.rawValue:
             return BatteryCapacityUnit.mAh
         case OperatingSystem.iPadOS.rawValue:
-            return BatteryCapacityUnit.Wh
+            return BatteryCapacityUnit.wh
         default:
             break
         }
