@@ -7,13 +7,7 @@
 
 import Foundation
 
-extension ChipData {
-    //チップ名のみの配列を作る
-    static let chipNameArray = ChipData.chipArray.map { $0.chipName }
-}
-
-struct ChipData: Identifiable {
-    var id = UUID()
+struct ChipData {
     var chipName: String //チップ名
     var manufacturingProcess: String //プロセスルール
     var cpuCoreNum: String //CPUコア数
@@ -21,13 +15,27 @@ struct ChipData: Identifiable {
     var neuralEngineCoreNum: String? //ニューラルエンジンコア数
 }
 
-extension ChipData {
-    static let chipArray = [
-        //ChipData(chipName: "", manufacturingProcess: " nm", cpuCoreNum: " (P+E)", gpuCoreNum: "", neuralEngineCoreNum: ""),
-        ChipData(chipName: "A15 Bionic (5-GPU)", manufacturingProcess: "5 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "5", neuralEngineCoreNum: "16"),
-        ChipData(chipName: "A14 Bionic", manufacturingProcess: "5 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "4", neuralEngineCoreNum: "16"),
-        ChipData(chipName: "A11 Bionic", manufacturingProcess: "10 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "3", neuralEngineCoreNum: "2"),
-        ChipData(chipName: "A10 Fusion", manufacturingProcess: "16 nm", cpuCoreNum: "4 (2P+2E)", gpuCoreNum: "-"),
-        ChipData(chipName: "A7", manufacturingProcess: "28 nm", cpuCoreNum: "2", gpuCoreNum: "-"),
-    ]
+enum Chip {
+    //1. caseを追加
+    case a15Bionic5GPU
+    case a14Bionic
+    case a11Bionic
+    case a10Fusion
+    case a7
+
+    var data: ChipData {
+        //2. caseに対応するChipDataを追加
+        switch self {
+        case .a15Bionic5GPU:
+            return ChipData(chipName: "A15 Bionic (5-GPU)", manufacturingProcess: "5 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "5", neuralEngineCoreNum: "16")
+        case .a14Bionic:
+            return ChipData(chipName: "A14 Bionic", manufacturingProcess: "5 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "4", neuralEngineCoreNum: "16")
+        case .a11Bionic:
+            return ChipData(chipName: "A11 Bionic", manufacturingProcess: "10 nm", cpuCoreNum: "6 (2P+4E)", gpuCoreNum: "3", neuralEngineCoreNum: "2")
+        case .a10Fusion:
+            return ChipData(chipName: "A10 Fusion", manufacturingProcess: "16 nm", cpuCoreNum: "4 (2P+2E)", gpuCoreNum: "-")
+        case .a7:
+            return ChipData(chipName: "A7", manufacturingProcess: "28 nm", cpuCoreNum: "2", gpuCoreNum: "-")
+        }
+    }
 }

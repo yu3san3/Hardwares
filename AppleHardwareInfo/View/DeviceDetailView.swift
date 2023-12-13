@@ -10,7 +10,6 @@ import SwiftUI
 struct DeviceDetailView: View {
     
     var device: DeviceData
-    var chip: ChipData?
 
     let technicalSpecificationsUrl: URL?
     @State private var batteryCapacityUnitDisplayMode: BatteryCapacityUnit
@@ -22,12 +21,6 @@ struct DeviceDetailView: View {
 
     init(device: DeviceData) {
         self.device = device
-        //chipListにおける現在のデバイスに搭載されているチップのindexを探してindexに代入
-        if let index = ChipData.chipNameArray.firstIndex(of: device.chip) {
-            self.chip = ChipData.chipArray[index]
-        } else {
-            self.chip = nil
-        }
         //技術仕様のURLを完成させる
         self.technicalSpecificationsUrl = URL(
             string: "https://support.apple.com/\(device.technicalSpecificationsUrl)"
@@ -37,22 +30,18 @@ struct DeviceDetailView: View {
     
     var body: some View {
         List {
-            if let chip = self.chip {
-                Section {
-                    SplitTextListItem(title: "SoC", element: chip.chipName)
-                    SplitTextListItem(title: "プロセスルール", element: chip.manufacturingProcess)
-                    SplitTextListItem(title: "CPUコア数", element: chip.cpuCoreNum)
-                    SplitTextListItem(title: "GPUコア数", element: chip.gpuCoreNum)
-                    if chip.neuralEngineCoreNum != nil {
-                        SplitTextListItem(title: "Neural Engineコア数", element: chip.neuralEngineCoreNum!)
-                    }
-                } header: {
-                    Text("チップ")
-                } footer: {
-                    Text("P: Performance  E: Efficiency")
+            Section {
+                SplitTextListItem(title: "SoC", element: device.chip.chipName)
+                SplitTextListItem(title: "プロセスルール", element: device.chip.manufacturingProcess)
+                SplitTextListItem(title: "CPUコア数", element: device.chip.cpuCoreNum)
+                SplitTextListItem(title: "GPUコア数", element: device.chip.gpuCoreNum)
+                if let neuralEngineCoreNum = device.chip.neuralEngineCoreNum {
+                    SplitTextListItem(title: "Neural Engineコア数", element: neuralEngineCoreNum)
                 }
-            } else {
-                Text("Error: Chip data is not registered.")
+            } header: {
+                Text("チップ")
+            } footer: {
+                Text("P: Performance  E: Efficiency")
             }
             Section {
                 SplitTextListItem(title: "容量", element: device.memoryCapacity)
