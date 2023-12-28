@@ -37,6 +37,7 @@
 		EBE5867528375345004B4C3E /* AppleHardwareInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE5867428375345004B4C3E /* AppleHardwareInfoTests.swift */; };
 		EBE5867F28375345004B4C3E /* AppleHardwareInfoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE5867E28375345004B4C3E /* AppleHardwareInfoUITests.swift */; };
 		EBE5868128375345004B4C3E /* AppleHardwareInfoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE5868028375345004B4C3E /* AppleHardwareInfoUITestsLaunchTests.swift */; };
+		EF9048782B3DB069000349DE /* TapToCorrectListAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9048772B3DB069000349DE /* TapToCorrectListAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		EBE5867A28375345004B4C3E /* AppleHardwareInfoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppleHardwareInfoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE5867E28375345004B4C3E /* AppleHardwareInfoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleHardwareInfoUITests.swift; sourceTree = "<group>"; };
 		EBE5868028375345004B4C3E /* AppleHardwareInfoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleHardwareInfoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EF9048772B3DB069000349DE /* TapToCorrectListAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapToCorrectListAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				EB1C438C2A5DBF4C007AC1C3 /* GlossaryView.swift */,
 				EB1C439D2A5DDF1D007AC1C3 /* GlossaryItem.swift */,
 				EBCBE70B2930A66800C3B7A3 /* SystemInfoView.swift */,
+				EF9048772B3DB069000349DE /* TapToCorrectListAlert.swift */,
 				EB40CCB42A5F0D5F0027A3E2 /* BatteryCorrectionListItem.swift */,
 				EB1C43972A5DDB11007AC1C3 /* SafariView.swift */,
 			);
@@ -387,6 +390,7 @@
 				EB646BF22924E5AF00C8E24D /* DeviceDetailView.swift in Sources */,
 				EBCC411329A52282000EDD93 /* DeviceName.swift in Sources */,
 				EB4575312A6075AD00505111 /* BatteryCapacityUnit.swift in Sources */,
+				EF9048782B3DB069000349DE /* TapToCorrectListAlert.swift in Sources */,
 				EB646BF02924E0B500C8E24D /* DeviceData.swift in Sources */,
 				EB40CCB32A5EF2F00027A3E2 /* ChipData.swift in Sources */,
 				EB1C43902A5DC275007AC1C3 /* SystemBoot.swift in Sources */,
