@@ -562,9 +562,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AppleHardwareInfo/AppleHardwareInfo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"AppleHardwareInfo/Preview Content\"";
-				DEVELOPMENT_TEAM = CZNP3969US;
+				DEVELOPMENT_TEAM = VXRZ4F779B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Hardwares;
@@ -579,7 +579,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "Alpha 1.9.0";
+				MARKETING_VERSION = "Alpha 1.9.1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.niwa.AppleHardwareInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -598,9 +598,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AppleHardwareInfo/AppleHardwareInfo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"AppleHardwareInfo/Preview Content\"";
-				DEVELOPMENT_TEAM = CZNP3969US;
+				DEVELOPMENT_TEAM = VXRZ4F779B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Hardwares;
@@ -615,7 +615,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "Alpha 1.9.0";
+				MARKETING_VERSION = "Alpha 1.9.1";
 				PRODUCT_BUNDLE_IDENTIFIER = com.niwa.AppleHardwareInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
