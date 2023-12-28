@@ -61,7 +61,11 @@ struct SystemInfoView: View {
                     SplitTextListItem(title: "容量",
                                       element: "\(revisedCapacity) \(battery.revisedCapacityUnit)")
                 } okButtonAction: { textFieldString in
-                    print(textFieldString)
+                    guard let revisedCapacity = Double(textFieldString) else {
+                        print("保存に失敗しました。")
+                        return
+                    }
+                    battery.revisedCapacity = revisedCapacity
                 }
                 TapToCorrectListAlert(alertTitle: "最大容量の補正",
                                       alertMessage: "現在の値: \(battery.maximumCapacity) \(battery.maximumCapacityUnit)",
@@ -71,7 +75,11 @@ struct SystemInfoView: View {
                     SplitTextListItem(title: "最大容量",
                                       element: "\(battery.maximumCapacity) \(battery.maximumCapacityUnit)")
                 } okButtonAction: { textFieldString in
-                    print(textFieldString)
+                    guard let maximumCapacity = Int(textFieldString) else {
+                        print("保存に失敗しました。")
+                        return
+                    }
+                    battery.maximumCapacity = maximumCapacity
                 }
                 makeActualCapacityListItem()
             } header: {
