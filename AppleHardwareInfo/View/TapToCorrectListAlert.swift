@@ -35,7 +35,13 @@ struct TapToCorrectListAlert<ListItem: View>: View {
     @State private var isShowingAlert = false
 
     var body: some View {
-        listItem
+        HStack {
+            listItem
+            Spacer()
+            Image(systemName: "chevron.forward") //Disclosure Indicator(>)
+                .font(Font.system(.caption).weight(.bold))
+                .foregroundColor(Color(UIColor.tertiaryLabel))
+        }
             .contentShape(Rectangle())
             .onTapGesture {
                 isShowingAlert = true
