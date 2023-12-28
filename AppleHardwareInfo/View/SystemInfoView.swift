@@ -53,10 +53,12 @@ struct SystemInfoView: View {
             Section {
                 //revisedCapacityがnilの場合はunknownを代入
                 let revisedCapacity = battery.revisedCapacity != nil ? "\(battery.revisedCapacity!)".localizedNumber : "unknown"
+                //容量の補正
                 TapToCorrectListAlert(alertTitle: "容量の補正",
                                       alertMessage: "現在の値: \(revisedCapacity) \(battery.revisedCapacityUnit)",
                                       textFieldPlaceholder: "0 \(battery.revisedCapacityUnit)",
-                                      textFieldInitialValue: "\(revisedCapacity)"
+                                      //MARK: - カンマを取り除く。ロケールによって動作しない可能性がある。
+                                      textFieldInitialValue: revisedCapacity.replacingOccurrences(of: ",", with: "")
                 ) {
                     SplitTextListItem(title: "容量",
                                       element: "\(revisedCapacity) \(battery.revisedCapacityUnit)")
@@ -67,10 +69,12 @@ struct SystemInfoView: View {
                     }
                     battery.revisedCapacity = revisedCapacity
                 }
+                //最大容量の補正
                 TapToCorrectListAlert(alertTitle: "最大容量の補正",
-                                      alertMessage: "現在の値: \(battery.maximumCapacity) \(battery.maximumCapacityUnit)",
-                                      textFieldPlaceholder: "100 %",
-                                      textFieldInitialValue: "\(battery.maximumCapacity)"
+                                      //Stringに変換しないとローカライズが正しくされない
+                                      alertMessage: "現在の値: \(String(battery.maximumCapacity)) \(battery.maximumCapacityUnit)",
+                                      textFieldPlaceholder: "100 \(battery.maximumCapacityUnit)",
+                                      textFieldInitialValue: String(battery.maximumCapacity)
                 ) {
                     SplitTextListItem(title: "最大容量",
                                       element: "\(battery.maximumCapacity) \(battery.maximumCapacityUnit)")

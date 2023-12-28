@@ -11,21 +11,21 @@ struct TapToCorrectListAlert<ListItem: View>: View {
     let alertTitle: LocalizedStringKey
     let alertMessage: LocalizedStringKey
     let textFieldPlaceholder: LocalizedStringKey
-    @State private var textFieldContent: String
+    let textFieldInitialValue: String
     let listItem: ListItem
     let okButtonAction: OkButtonAction
 
     init(alertTitle: LocalizedStringKey,
          alertMessage: LocalizedStringKey,
          textFieldPlaceholder: LocalizedStringKey,
-         textFieldInitialValue textFieldContent: String,
+         textFieldInitialValue: String,
          @ViewBuilder listItem: () -> ListItem,
          okButtonAction: @escaping OkButtonAction
     ) {
         self.alertTitle = alertTitle
         self.alertMessage = alertMessage
         self.textFieldPlaceholder = textFieldPlaceholder
-        self._textFieldContent = State(initialValue: textFieldContent)
+        self.textFieldInitialValue = textFieldInitialValue
         self.listItem = listItem()
         self.okButtonAction = okButtonAction
     }
@@ -33,6 +33,7 @@ struct TapToCorrectListAlert<ListItem: View>: View {
     typealias OkButtonAction = (String) -> Void
 
     @State private var isShowingAlert = false
+    @State private var textFieldContent = ""
 
     var body: some View {
         HStack {
@@ -42,32 +43,37 @@ struct TapToCorrectListAlert<ListItem: View>: View {
                 .font(Font.system(.caption).weight(.bold))
                 .foregroundColor(Color(UIColor.tertiaryLabel))
         }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                isShowingAlert = true
-            }
-            .alert(alertTitle, isPresented: $isShowingAlert) {
-                TextField(textFieldPlaceholder, text: $textFieldContent)
-                    .keyboardType(.decimalPad)
-                    .onReceive( //テキストを全選択
-                        NotificationCenter.default.publisher(
-                            for: UITextField.textDidBeginEditingNotification
+        .contentShape(Rectangle())
+        .onTapGesture {
+            //cancelボタンでalertがdismissされた場合でも、正しくtextFieldContentの
+            //内容が保持されるよう、ここで初期値を代入
+            textFieldContent = textFieldInitialValue
+            isShowingAlert = true
+        }
+        .alert(alertTitle, isPresented: $isShowingAlert) {
+            //???: 謎のエラーが出る。しかも意図せずalertがdismissされる。
+            //-[RTIInputSystemClient remoteTextInputSessionWithID:performInputOperation:]  perform input operation requires a valid sessionID
+            TextField(textFieldPlaceholder, text: $textFieldContent)
+                .keyboardType(.decimalPad)
+                .onReceive( //テキストを全選択
+                    NotificationCenter.default.publisher(
+                        for: UITextField.textDidBeginEditingNotification
+                    )
+                ) { obj in
+                    if let textField = obj.object as? UITextField {
+                        textField.selectedTextRange = textField.textRange(
+                            from: textField.beginningOfDocument,
+                            to: textField.endOfDocument
                         )
-                    ) { obj in
-                        if let textField = obj.object as? UITextField {
-                            textField.selectedTextRange = textField.textRange(
-                                from: textField.beginningOfDocument,
-                                to: textField.endOfDocument
-                            )
-                        }
                     }
-                Button("OK") {
-                    okButtonAction(textFieldContent)
                 }
-                Button("キャンセル", role: .cancel) {}
-            } message: {
-                Text(alertMessage)
+            Button("OK") {
+                okButtonAction(textFieldContent)
             }
+            Button("キャンセル", role: .cancel) {}
+        } message: {
+            Text(alertMessage)
+        }
     }
 }
 
