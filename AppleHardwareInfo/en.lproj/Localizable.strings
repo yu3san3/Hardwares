@@ -42,8 +42,9 @@
 
 "バッテリーの状態" = "Battery Status";
 "キャンセル" = "Cancel";
-"%@の補正" = "%@ Correction";
-"現在の値: %@" = "Current Value: %@";
+"容量の補正" = "Capacity Correction";
+"最大容量の補正" = "Health Correction";
+"現在の値: %@ %@" = "Current Value: %@ %@";
 "最大容量" = "Health";
 "実際の容量" = "Converted Capacity";
 

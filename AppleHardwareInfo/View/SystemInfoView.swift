@@ -12,7 +12,7 @@ struct SystemInfoView: View {
     private let systemBoot = SystemBoot()
     
     @StateObject var thermalMonitor = ThermalMonitor()
-    @ObservedObject var battery = Battery()
+    @StateObject var battery = Battery()
 
     @State private var systemUptimeText: String = ""
     @State private var uptimeTimer: Timer!
@@ -51,8 +51,40 @@ struct SystemInfoView: View {
                 makeThermalStateFooter()
             }
             Section {
-                BatteryCorrectionListItem(type: .revisedCapacity)
-                BatteryCorrectionListItem(type: .maximumCapacity)
+                //revisedCapacityがnilの場合はunknownを代入
+                let revisedCapacity = battery.revisedCapacity != nil ? "\(battery.revisedCapacity!)".localizedNumber : "unknown"
+                //容量の補正
+                TapToCorrectListAlert(alertTitle: "容量の補正",
+                                      alertMessage: "現在の値: \(revisedCapacity) \(battery.revisedCapacityUnit)",
+                                      textFieldPlaceholder: "0 \(battery.revisedCapacityUnit)",
+                                      //MARK: - カンマを取り除く。ロケールによって動作しない可能性がある。
+                                      textFieldInitialValue: revisedCapacity.replacingOccurrences(of: ",", with: "")
+                ) {
+                    SplitTextListItem(title: "容量",
+                                      element: "\(revisedCapacity) \(battery.revisedCapacityUnit)")
+                } okButtonAction: { textFieldString in
+                    guard let revisedCapacity = Double(textFieldString) else {
+                        print("保存に失敗しました。")
+                        return
+                    }
+                    battery.revisedCapacity = revisedCapacity
+                }
+                //最大容量の補正
+                TapToCorrectListAlert(alertTitle: "最大容量の補正",
+                                      //Stringに変換しないとローカライズが正しくされない
+                                      alertMessage: "現在の値: \(String(battery.maximumCapacity)) \(battery.maximumCapacityUnit)",
+                                      textFieldPlaceholder: "100 \(battery.maximumCapacityUnit)",
+                                      textFieldInitialValue: String(battery.maximumCapacity)
+                ) {
+                    SplitTextListItem(title: "最大容量",
+                                      element: "\(battery.maximumCapacity) \(battery.maximumCapacityUnit)")
+                } okButtonAction: { textFieldString in
+                    guard let maximumCapacity = Int(textFieldString) else {
+                        print("保存に失敗しました。")
+                        return
+                    }
+                    battery.maximumCapacity = maximumCapacity
+                }
                 makeActualCapacityListItem()
             } header: {
                 Text("バッテリーの状態")
@@ -210,8 +242,11 @@ private extension SystemInfoView {
     }
 }
 
-struct SystemDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        SystemInfoView()
-    }
+#Preview("日本語") {
+    SystemInfoView()
+}
+
+#Preview("English") {
+    SystemInfoView()
+        .environment(\.locale, .init(identifier: "en_US"))
 }
