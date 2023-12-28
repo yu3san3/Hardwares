@@ -10,16 +10,27 @@ import SwiftUI
 struct TapToCorrectListAlert<ListItem: View>: View {
     let alertTitle: LocalizedStringKey
     let alertMessage: LocalizedStringKey
+    let textFieldPlaceholder: LocalizedStringKey
+    @State private var textFieldContent: String
     let listItem: ListItem
+    let okButtonAction: OkButtonAction
 
     init(alertTitle: LocalizedStringKey,
          alertMessage: LocalizedStringKey,
-         @ViewBuilder listItem: () -> ListItem
+         textFieldPlaceholder: LocalizedStringKey,
+         textFieldInitialValue textFieldContent: String,
+         @ViewBuilder listItem: () -> ListItem,
+         okButtonAction: @escaping OkButtonAction
     ) {
         self.alertTitle = alertTitle
         self.alertMessage = alertMessage
+        self.textFieldPlaceholder = textFieldPlaceholder
+        self._textFieldContent = State(initialValue: textFieldContent)
         self.listItem = listItem()
+        self.okButtonAction = okButtonAction
     }
+
+    typealias OkButtonAction = (String) -> Void
 
     @State private var isShowingAlert = false
 
@@ -29,8 +40,9 @@ struct TapToCorrectListAlert<ListItem: View>: View {
                 isShowingAlert = true
             }
             .alert(alertTitle, isPresented: $isShowingAlert) {
+                TextField(textFieldPlaceholder, text: $textFieldContent)
                 Button("OK") {
-
+                    okButtonAction(textFieldContent)
                 }
                 Button("キャンセル", role: .cancel) {}
             } message: {
@@ -41,8 +53,12 @@ struct TapToCorrectListAlert<ListItem: View>: View {
 
 #Preview {
     TapToCorrectListAlert(alertTitle: "Hello",
-                       alertMessage: "This is the test alert."
+                          alertMessage: "This is the test alert.",
+                          textFieldPlaceholder: "This is the placeholder.",
+                          textFieldInitialValue: "initial Value"
     ) {
         Text("Hello")
+    } okButtonAction: { textFieldContent in
+        print("OK Button Tapped! The TextField Content is \(textFieldContent)")
     }
 }
