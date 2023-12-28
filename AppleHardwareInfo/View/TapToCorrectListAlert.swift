@@ -36,11 +36,25 @@ struct TapToCorrectListAlert<ListItem: View>: View {
 
     var body: some View {
         listItem
+            .contentShape(Rectangle())
             .onTapGesture {
                 isShowingAlert = true
             }
             .alert(alertTitle, isPresented: $isShowingAlert) {
                 TextField(textFieldPlaceholder, text: $textFieldContent)
+                    .keyboardType(.decimalPad)
+                    .onReceive( //テキストを全選択
+                        NotificationCenter.default.publisher(
+                            for: UITextField.textDidBeginEditingNotification
+                        )
+                    ) { obj in
+                        if let textField = obj.object as? UITextField {
+                            textField.selectedTextRange = textField.textRange(
+                                from: textField.beginningOfDocument,
+                                to: textField.endOfDocument
+                            )
+                        }
+                    }
                 Button("OK") {
                     okButtonAction(textFieldContent)
                 }
