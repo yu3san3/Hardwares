@@ -17,8 +17,8 @@ struct DeviceDetailView: View {
     @State private var shouldShowWebView: Bool = false
     @State private var shouldShowGlossaryView: Bool = false
 
-    init(device: DeviceData) {
-        self.device = device
+    init(withData deviceData: DeviceData) {
+        self.device = deviceData
         self._batteryCapacityUnitDisplayMode = State(initialValue: device.battery.unit)
     }
 
@@ -193,5 +193,5 @@ private extension DeviceDetailView {
 }
 
 #Preview {
-    DeviceDetailView(device: DeviceData.iPhoneArray[0])
+    DeviceDetailView(withData: DeviceData.iPhoneArray[0])
 }

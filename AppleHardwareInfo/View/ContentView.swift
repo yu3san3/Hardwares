@@ -92,7 +92,7 @@ private extension ContentView {
     func makeLinkViewToDeviceDetailViewOfCurrentDevice() -> some View {
         if let deviceData = DeviceData.getCurrentDeviceData() {
             NavigationLink(
-                destination: DeviceDetailView(device: deviceData)
+                destination: DeviceDetailView(withData: deviceData)
             ) {
                 HStack {
                     Image(systemName: "ipad.and.iphone")

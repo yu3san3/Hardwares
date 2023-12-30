@@ -8,12 +8,6 @@
 import SwiftUI
 
 extension DeviceData {
-    //デバイス名のみの配列を作る
-    static let iPhoneNameArray = DeviceData.iPhoneArray.map{ $0.deviceName }
-    static let iPadNameArray = DeviceData.iPadArray.map{ $0.deviceName }
-}
-
-extension DeviceData {
     static func getCurrentDeviceData() -> DeviceData? {
         //実行中のデバイス名(iPhone 12 mini etc.)を取得
         let currentDeviceName = DeviceName.getCurrentDevice()
