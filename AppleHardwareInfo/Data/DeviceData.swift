@@ -15,29 +15,20 @@ extension DeviceData {
 
 extension DeviceData {
     static func getCurrentDeviceData() -> DeviceData? {
-        guard let index = getIndexOfCurrentDeviceInDeviceArray() else {
-            return nil
-        }
+        //実行中のデバイス名(iPhone 12 mini etc.)を取得
+        let currentDeviceName = DeviceName.getCurrentDevice()
+        var result: DeviceData?
+        //systemName(iOS, iPadOS...)で場合分け
         switch UIDevice.current.systemName {
         case OperatingSystem.iOS.rawValue:
-            return DeviceData.iPhoneArray[index]
+            //deviceNameと実行中のデバイス名が一致した初めての配列を結果に代入
+            result = DeviceData.iPhoneArray.first { $0.deviceName == currentDeviceName }
         case OperatingSystem.iPadOS.rawValue:
-            return DeviceData.iPadArray[index]
+            result = DeviceData.iPadArray.first { $0.deviceName == currentDeviceName }
         default:
-            return nil
+            break
         }
-    }
-
-    //deviceDataのArrayにおけるcurrentDeviceのindex
-    private static func getIndexOfCurrentDeviceInDeviceArray() -> Int? {
-        switch UIDevice.current.systemName {
-        case OperatingSystem.iOS.rawValue:
-            return DeviceData.iPhoneNameArray.firstIndex(of: DeviceName.getCurrentDevice())
-        case OperatingSystem.iPadOS.rawValue:
-            return DeviceData.iPadNameArray.firstIndex(of: DeviceName.getCurrentDevice())
-        default:
-            return nil
-        }
+        return result
     }
 }
 
